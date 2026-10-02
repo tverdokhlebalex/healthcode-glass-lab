@@ -1,0 +1,75 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: min(460px, calc(100vw - 32px));
+  height: fit-content;
+  margin: auto;
+  padding: 36px 32px 28px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--white);
+  color: var(--graphite);
+  box-shadow: 0 24px 80px rgba(27, 27, 25, 0.18);
+}
+
+.dialog::backdrop {
+  background: rgba(27, 27, 25, 0.46);
+}
+
+.close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--graphite);
+}
+
+.close:hover {
+  background: var(--soft-grey);
+}
+
+.title {
+  max-width: 10em;
+  padding-right: 28px;
+  font-size: clamp(32px, 4vw, 40px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.text {
+  margin-top: 14px;
+  color: var(--deep-grey);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.start {
+  width: 100%;
+  margin-top: 28px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dialog[open] {
+    animation: rise 420ms var(--ease);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}

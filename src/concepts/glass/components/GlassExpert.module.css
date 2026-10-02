@@ -1,0 +1,151 @@
+.section {
+  position: relative;
+  overflow: clip;
+  background: #eef0ef;
+}
+
+.scene {
+  position: relative;
+  min-height: 100svh;
+}
+
+.face {
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 0 18%;
+}
+
+.face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 18%;
+  filter: grayscale(0.35) contrast(1.05);
+}
+
+.veil {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #eef0ef 0%, rgba(238, 240, 239, 0.82) 28%, rgba(238, 240, 239, 0.18) 58%, rgba(255, 255, 255, 0.08) 100%),
+    linear-gradient(180deg, rgba(247, 248, 247, 0.2), transparent 30%);
+  pointer-events: none;
+}
+
+.behind,
+.fore {
+  position: absolute;
+  z-index: 2;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.behind {
+  top: 28%;
+  left: 42%;
+  z-index: 1;
+  color: #151615;
+}
+
+.fore {
+  right: 8%;
+  bottom: 16%;
+  z-index: 4;
+  backdrop-filter: blur(20px);
+}
+
+.behind span,
+.fore span {
+  display: block;
+  margin-bottom: 6px;
+  color: #5c605c;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.behind,
+.fore {
+  font-size: 36px;
+  letter-spacing: -0.04em;
+}
+
+.copy {
+  position: relative;
+  z-index: 5;
+  max-width: 22em;
+  padding: 120px 24px 72px;
+}
+
+.title {
+  font-size: clamp(36px, 6vw, 68px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.title span {
+  display: block;
+}
+
+.text {
+  max-width: 38ch;
+  margin-top: 22px;
+  color: #30322f;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+@media (min-width: 981px) {
+  .copy {
+    padding: 22vh 80px 0;
+  }
+
+  .behind {
+    right: 28%;
+    font-size: 44px;
+  }
+
+  .fore {
+    right: 10%;
+    font-size: 56px;
+  }
+}
+
+@media (max-width: 980px) {
+  .scene {
+    min-height: auto;
+  }
+
+  .face {
+    position: relative;
+    inset: auto;
+    height: 58vw;
+    min-height: 280px;
+  }
+
+  .veil {
+    background: linear-gradient(180deg, transparent 40%, #eef0ef 92%);
+  }
+
+  .behind {
+    top: 18%;
+    right: 16px;
+    font-size: 28px;
+  }
+
+  .fore {
+    top: 46%;
+    right: 16px;
+    bottom: auto;
+    font-size: 32px;
+  }
+
+  .copy {
+    padding: 28px 20px 72px;
+  }
+}

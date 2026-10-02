@@ -1,0 +1,145 @@
+.wrap {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 32px);
+  padding: 8px 8px 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.88);
+  color: #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(16px);
+}
+
+.kicker {
+  flex: none;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.row {
+  display: flex;
+  gap: 4px;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.62);
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tab:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.on {
+  color: #151615;
+  background: #fff;
+}
+
+.on:hover {
+  color: #151615;
+  background: #fff;
+}
+
+.code {
+  font-variant-numeric: tabular-nums;
+}
+
+.name {
+  display: none;
+}
+
+.toggle {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.toggle:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.collapsed {
+  padding: 6px;
+  gap: 0;
+}
+
+.collapsed .kicker,
+.collapsed .row {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .name {
+    display: inline;
+  }
+
+  .tab:not(.on) .name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .tab:hover .name,
+  .on .name {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+}
+
+@media (max-width: 719px) {
+  .wrap {
+    right: 12px;
+    bottom: 12px;
+    padding: 6px 6px 6px 10px;
+  }
+
+  .kicker {
+    display: none;
+  }
+
+  .name {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wrap,
+  .tab,
+  .toggle {
+    transition: none;
+  }
+}

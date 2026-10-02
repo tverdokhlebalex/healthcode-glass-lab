@@ -1,0 +1,191 @@
+.expert {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+  align-items: center;
+  min-height: 100svh;
+  padding-top: 10vh;
+  background: var(--warm-white);
+}
+
+.portrait {
+  position: relative;
+  height: 88svh;
+  overflow: hidden;
+}
+
+.portrait picture {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 100%;
+}
+
+.dataPath {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.dataPath path {
+  fill: none;
+  stroke: #b79252;
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.62;
+}
+
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 32% 18%;
+}
+
+.tag {
+  position: absolute;
+  z-index: 3;
+  top: 32px;
+  left: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tag span {
+  width: 24px;
+  height: 1.5px;
+  background: var(--gold);
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  padding: 0 6vw 0 64px;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(48px, 4.6vw, 80px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+}
+
+.human {
+  font-family: var(--serif);
+  font-size: 0.95em;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.rule {
+  display: block;
+  width: 64px;
+  height: 1.5px;
+  margin-top: 32px;
+  background: var(--gold);
+  transform-origin: left center;
+}
+
+.text {
+  max-width: 34ch;
+  margin: 24px 0 0;
+  color: var(--ink-2);
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}
+
+/* Этапы работы эксперта — тот же язык точек и нити, что в hero */
+.caps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 0;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: cap;
+}
+
+.caps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  counter-increment: cap;
+}
+
+.caps li::before {
+  content: "0" counter(cap);
+  color: var(--faint-grey);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.caps li:not(:last-child)::after {
+  content: "";
+  width: 24px;
+  height: 1px;
+  margin: 0 12px 0 4px;
+  background: var(--gold);
+}
+
+.actions {
+  margin-top: 48px;
+}
+
+@media (max-width: 800px) {
+  .expert {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    padding-top: 0;
+  }
+
+  .portrait {
+    height: 64svh;
+  }
+
+  .tag {
+    top: 16px;
+    left: 20px;
+  }
+
+  .copy {
+    padding: 32px 20px 64px;
+  }
+
+  .title {
+    font-size: clamp(40px, 11vw, 56px);
+  }
+
+  .text {
+    font-size: 16px;
+  }
+
+  .actions {
+    margin-top: 32px;
+  }
+}

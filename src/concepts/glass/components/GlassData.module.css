@@ -1,0 +1,146 @@
+.section {
+  position: relative;
+  padding: 88px 20px 72px;
+  background: #eef0ef;
+}
+
+.head {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+}
+
+.title {
+  max-width: 10em;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.title span {
+  display: block;
+}
+
+.field {
+  position: relative;
+  min-height: 640px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lines path {
+  stroke: #b79557;
+  stroke-width: 1.1;
+  opacity: 0.7;
+}
+
+.node {
+  position: absolute;
+  z-index: 2;
+  min-width: 8rem;
+  transform: translate(-50%, -50%);
+}
+
+.dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: #b79557;
+}
+
+.node strong {
+  display: block;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.node small {
+  display: block;
+  margin-top: 4px;
+  color: #5c605c;
+  font-size: 12px;
+}
+
+.core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  width: min(72vw, 280px);
+  padding: 28px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.36);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.coreLabel {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.coreText {
+  margin-top: 10px;
+  color: #b79557;
+  font-size: 15px;
+}
+
+@media (min-width: 981px) {
+  .section {
+    padding: 120px 40px 100px;
+  }
+
+  .field {
+    min-height: 760px;
+  }
+
+  .core {
+    width: 300px;
+    padding: 36px 28px;
+    backdrop-filter: blur(28px);
+  }
+}
+
+@media (max-width: 980px) {
+  .field {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    gap: 22px;
+    padding: 8px 0 20px;
+  }
+
+  .lines {
+    display: none;
+  }
+
+  .node,
+  .core {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    transform: none;
+  }
+
+  .core {
+    order: 6;
+    margin-top: 12px;
+    text-align: left;
+  }
+}

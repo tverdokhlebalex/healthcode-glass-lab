@@ -1,0 +1,19 @@
+html[data-concept="glass"] {
+  scroll-padding-top: 96px;
+}
+
+html[data-concept="glass"] body {
+  background: #f7f8f7;
+  color: #151615;
+  font-family: "Onest", "Manrope", "Segoe UI", sans-serif;
+}
+
+html[data-concept="journey"] {
+  scroll-padding-top: 24px;
+}
+
+html[data-concept="journey"] body {
+  background: #f4f5f4;
+  color: #151615;
+  font-family: "Onest", "Manrope", "Segoe UI", sans-serif;
+}

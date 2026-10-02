@@ -1,0 +1,298 @@
+.hero {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  margin-bottom: -10vh;
+}
+
+.canvas {
+  position: absolute;
+  z-index: 0;
+  inset: calc(var(--infobar) + var(--header)) 0 0;
+  overflow: hidden;
+  background: var(--soft-grey);
+}
+
+.zoom {
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.zoom picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 30%;
+}
+
+.copy {
+  position: relative;
+  z-index: 2;
+  width: min(820px, 60vw);
+  padding: calc(var(--infobar) + var(--header) + 64px) 0 0 5vw;
+}
+
+.title {
+  margin: 0;
+  color: var(--graphite);
+  font-size: clamp(72px, 6vw, 112px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.93;
+}
+
+.lead {
+  max-width: 30ch;
+  margin-top: 24px;
+  color: var(--ink-2);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.actions {
+  margin-top: 32px;
+}
+
+.path {
+  position: absolute;
+  z-index: 2;
+  bottom: 96px;
+  left: 5vw;
+  display: grid;
+  grid-template-columns: min(640px, 46vw) auto;
+  align-items: start;
+  gap: 16px;
+  color: var(--graphite);
+}
+
+.rail {
+  position: relative;
+}
+
+/* Нить данных уходит из hero в тёмную секцию и становится графиком */
+.drop {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  width: 1.5px;
+  height: calc(96px + 11vh);
+  background: linear-gradient(var(--gold), var(--gold) 70%, rgba(183, 146, 82, 0));
+  transform-origin: top;
+}
+
+.drop i {
+  position: absolute;
+  top: 0;
+  left: -2.75px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.demo {
+  margin: -5px 0 0;
+  color: var(--mid-grey);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.line {
+  display: block;
+  width: 100%;
+  height: 8px;
+  overflow: visible;
+}
+
+.line path,
+.spark path {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.labels {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: space-between;
+  margin: -6.5px 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.labels li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.noteValue {
+  margin-top: 4px;
+  color: var(--graphite);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.labels small {
+  color: var(--mid-grey);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.sequence {
+  position: absolute;
+  z-index: 2;
+  bottom: 32px;
+  left: 5vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sequence li {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sequence li:not(:last-child)::after {
+  content: "";
+  width: 24px;
+  height: 1px;
+  margin: 0 12px;
+  background: var(--faint-grey);
+}
+
+@media (max-width: 800px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin-bottom: 0;
+    background: var(--warm-white);
+  }
+
+  .copy {
+    order: 1;
+    width: 100%;
+    padding: calc(var(--infobar) + var(--header) + 32px) 20px 24px;
+  }
+
+  .title {
+    font-size: clamp(46px, 13vw, 64px);
+  }
+
+  .lead {
+    margin-top: 16px;
+    font-size: 16px;
+  }
+
+  .actions {
+    margin-top: 24px;
+  }
+
+  .canvas {
+    position: relative;
+    inset: auto;
+    order: 2;
+    height: 60svh;
+  }
+
+  .photo {
+    object-position: 74% 40%;
+  }
+
+  .path {
+    position: static;
+    order: 3;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 20px 0;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .labels {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 12px;
+    margin: 0;
+    padding-top: 16px;
+    border-top: 1.5px solid var(--gold);
+  }
+
+  .labels li {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .noteValue {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+
+  .dot {
+    margin: 0;
+  }
+
+  .drop {
+    display: none;
+  }
+
+  .demo {
+    margin: 0;
+  }
+
+  .sequence {
+    position: static;
+    order: 4;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 24px 20px 48px;
+    scrollbar-width: none;
+  }
+
+  .sequence li {
+    flex: none;
+  }
+}

@@ -1,0 +1,30 @@
+.glass-lab {
+  --gl-base: #f7f8f7;
+  --gl-white: #ffffff;
+  --gl-mist: #eef0ef;
+  --gl-ink: #151615;
+  --gl-ink-2: #30322f;
+  --gl-muted: #5c605c;
+  --gl-soft: #747873;
+  --gl-metal: #c9cdca;
+  --gl-metal-2: #d8dbd9;
+  --gl-gold: #b79557;
+  --gl-gold-2: #d1b77d;
+  --gl-dark: #1b1c1b;
+  --gl-lab: #181a19;
+  --gl-glass: rgba(255, 255, 255, 0.52);
+  --gl-glass-2: rgba(255, 255, 255, 0.72);
+  --gl-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --gl-font: "Onest", "Manrope", "Segoe UI", sans-serif;
+  position: relative;
+  min-height: 100svh;
+  overflow-x: clip;
+  background: var(--gl-base);
+  color: var(--gl-ink);
+  font-family: var(--gl-font);
+}
+
+.glass-lab ::selection {
+  background: #e6d7b6;
+  color: var(--gl-ink);
+}

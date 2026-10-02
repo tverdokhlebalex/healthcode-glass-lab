@@ -1,0 +1,77 @@
+.lg {
+  height: 54px;
+  padding: 0 8px 0 22px;
+  font-size: 15px;
+}
+
+.sm {
+  height: 40px;
+  padding: 0 6px 0 14px;
+  font-size: 13px;
+  gap: 14px;
+}
+
+.sm .mark {
+  width: 22px;
+  height: 22px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font: inherit;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  transition:
+    background-color 400ms var(--gl-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    border-color 400ms var(--gl-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    color 400ms var(--gl-ease, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 1px;
+  background:
+    linear-gradient(#d1b77d, #d1b77d) center / 12px 1px no-repeat,
+    linear-gradient(#d1b77d, #d1b77d) calc(50% + 5px) 50% / 1px 12px no-repeat;
+}
+
+.ink {
+  background: #151615;
+  color: #fff;
+}
+
+.ink:hover {
+  background: #30322f;
+}
+
+.light {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.light:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.ghost {
+  background: transparent;
+  border-color: rgba(21, 22, 21, 0.16);
+  color: #151615;
+}
+
+.ghost:hover {
+  border-color: rgba(21, 22, 21, 0.32);
+}
+
+@media (max-width: 720px) {
+  .btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
