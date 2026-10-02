@@ -1,67 +1,25 @@
 import { useLayoutEffect } from "react";
-import { gsap, prefersReducedMotion } from "../../../motion/gsap.js";
-
+import { gsap } from "../../../motion/gsap.js";
 export function useGlassDataMotion(rootRef) {
-  useLayoutEffect(() => {
-    const root = rootRef.current;
-    if (!root) return undefined;
-
-    const reduced = prefersReducedMotion();
-    const desktop = window.matchMedia("(min-width: 981px)").matches;
-
-    const ctx = gsap.context(() => {
-      const nodes = root.querySelectorAll("[data-node]");
-      const paths = root.querySelectorAll("[data-path]");
-      const core = root.querySelector("[data-core]");
-      const assembled = root.querySelector("[data-assembled]");
-
-      if (reduced) return;
-
-      gsap.set(assembled, { opacity: 0 });
-      gsap.set(core, { opacity: 0.45 });
-
-      paths.forEach((path) => {
-        const length = path.getTotalLength();
-        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+  useLayoutEffect(()=>{
+    const root=rootRef.current;
+    const mm=gsap.matchMedia();
+    mm.add({motion:"(prefers-reduced-motion: no-preference)",desktop:"(min-width:761px)"},({conditions})=>{
+      if(!conditions.motion)return;
+      const nodes=root.querySelectorAll("[data-node]");
+      const core=root.querySelector("[data-core]");
+      if(!conditions.desktop){ gsap.from([core,...nodes],{opacity:0,y:12,duration:.9,stagger:.05,scrollTrigger:{trigger:root,start:"top 70%",once:true},onComplete:()=>core.closest("section").querySelector("[data-optical-scene]").dispatchEvent(new Event("optical-align"))});return; }
+      const tl=gsap.timeline({scrollTrigger:{trigger:root,start:"top 65%",end:"bottom 85%",scrub:1}});
+      tl.from(nodes,{opacity:.25,y:20,stagger:.06,duration:.6},0);
+      [...root.querySelectorAll("[data-path]")].forEach((path,i)=>{
+        const length=path.getTotalLength();
+        tl.fromTo(path,{strokeDasharray:length,strokeDashoffset:length},{strokeDashoffset:0,duration:.7},.1+i*.08);
+        const point=root.querySelector(`[data-impulse="${i}"]`),state={t:0};
+        tl.to(state,{t:1,duration:.8,ease:"none",onUpdate:()=>{const p=path.getPointAtLength(state.t*length);point.setAttribute("cx",p.x);point.setAttribute("cy",p.y);}},.2+i*.08);
+        tl.fromTo(point,{opacity:0},{opacity:1,duration:.1},.2+i*.08).to(point,{opacity:0,duration:.12},.9+i*.08);
       });
-
-      if (!desktop) {
-        gsap.from(nodes, {
-          y: 16,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: root, start: "top 78%", once: true },
-        });
-        gsap.to([core, assembled], {
-          opacity: 1,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: { trigger: core, start: "top 86%", once: true },
-        });
-        return;
-      }
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root,
-          start: "top 70%",
-          end: "bottom 55%",
-          scrub: 1.1,
-        },
-      });
-
-      nodes.forEach((node, index) => {
-        tl.fromTo(node, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.8, ease: "none" }, index * 0.16);
-        const path = paths[index];
-        if (!path) return;
-        tl.to(path, { strokeDashoffset: 0, duration: 0.9, ease: "none" }, index * 0.16 + 0.08);
-      });
-      tl.to(core, { opacity: 1, duration: 0.6, ease: "none" }, 0.85);
-      tl.to(assembled, { opacity: 1, duration: 0.5, ease: "none" }, 1.05);
-    }, root);
-
-    return () => ctx.revert();
-  }, []);
+      tl.fromTo(core,{opacity:.5,filter:"blur(2px)"},{opacity:1,filter:"blur(0px)",duration:.9},.3).from(root.querySelector("[data-assembled]"),{opacity:0,y:7,duration:.4},1.2);
+    },root);
+    return ()=>mm.revert();
+  },[rootRef]);
 }

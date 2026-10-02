@@ -1,151 +1,20 @@
-.section {
-  position: relative;
-  overflow: clip;
-  background: #eef0ef;
-}
-
-.scene {
-  position: relative;
-  min-height: 100svh;
-}
-
-.face {
-  position: absolute;
-  z-index: 2;
-  inset: 0 0 0 18%;
-}
-
-.face img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 55% 18%;
-  filter: grayscale(0.35) contrast(1.05);
-}
-
-.veil {
-  position: absolute;
-  z-index: 3;
-  inset: 0;
-  background:
-    linear-gradient(90deg, #eef0ef 0%, rgba(238, 240, 239, 0.82) 28%, rgba(238, 240, 239, 0.18) 58%, rgba(255, 255, 255, 0.08) 100%),
-    linear-gradient(180deg, rgba(247, 248, 247, 0.2), transparent 30%);
-  pointer-events: none;
-}
-
-.behind,
-.fore {
-  position: absolute;
-  z-index: 2;
-  padding: 16px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.38);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
-}
-
-.behind {
-  top: 28%;
-  left: 42%;
-  z-index: 1;
-  color: #151615;
-}
-
-.fore {
-  right: 8%;
-  bottom: 16%;
-  z-index: 4;
-  backdrop-filter: blur(20px);
-}
-
-.behind span,
-.fore span {
-  display: block;
-  margin-bottom: 6px;
-  color: #5c605c;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.behind,
-.fore {
-  font-size: 36px;
-  letter-spacing: -0.04em;
-}
-
-.copy {
-  position: relative;
-  z-index: 5;
-  max-width: 22em;
-  padding: 120px 24px 72px;
-}
-
-.title {
-  font-size: clamp(36px, 6vw, 68px);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 0.94;
-  text-transform: uppercase;
-}
-
-.title span {
-  display: block;
-}
-
-.text {
-  max-width: 38ch;
-  margin-top: 22px;
-  color: #30322f;
-  font-size: 17px;
-  line-height: 1.45;
-}
-
-@media (min-width: 981px) {
-  .copy {
-    padding: 22vh 80px 0;
-  }
-
-  .behind {
-    right: 28%;
-    font-size: 44px;
-  }
-
-  .fore {
-    right: 10%;
-    font-size: 56px;
-  }
-}
-
-@media (max-width: 980px) {
-  .scene {
-    min-height: auto;
-  }
-
-  .face {
-    position: relative;
-    inset: auto;
-    height: 58vw;
-    min-height: 280px;
-  }
-
-  .veil {
-    background: linear-gradient(180deg, transparent 40%, #eef0ef 92%);
-  }
-
-  .behind {
-    top: 18%;
-    right: 16px;
-    font-size: 28px;
-  }
-
-  .fore {
-    top: 46%;
-    right: 16px;
-    bottom: auto;
-    font-size: 32px;
-  }
-
-  .copy {
-    padding: 28px 20px 72px;
-  }
-}
+.section { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:6%; padding:110px 5.2%; background:#f3f5f4; }
+.copy h2 { font-size:clamp(46px,4.6vw,80px); line-height:1.06; font-weight:400; letter-spacing:-.04em; }
+.copy > p { max-width:360px; margin-top:34px; font-size:16px; color:#566367; line-height:1.7; }
+.connection { display:flex; gap:12px; align-items:center; margin-top:62px; font-size:10px; color:#5b676a; }
+.connection > i:not(:first-child) { width:25px; height:1px; background:#b8945077; }
+.scene { position:relative; height:640px; }
+.portrait { position:absolute; inset:0 0 0 10%; overflow:hidden; border-radius:2px; }
+.portrait picture,.portrait img { width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
+.frost { position:absolute; left:0; top:15%; width:23%; height:73%; }
+.clear { position:absolute; left:16%; right:-2%; bottom:2%; height:200px; }
+.annotation { padding:26px 28px; }
+.annotation > span { color:#35474e; }
+.annotation > div { display:flex; justify-content:space-between; gap:30px; align-items:center; margin-top:12px; }
+.annotation > div > span { font-size:58px; line-height:1; font-weight:300; letter-spacing:-.04em; }
+.annotation small { display:block; font-size:10px; margin-top:7px; letter-spacing:.02em; color:#3b515c; }
+.annotation svg { width:125px; }
+.annotation > p { display:flex; gap:9px; align-items:center; margin-top:20px; font-size:10px; color:#2e444e; }
+.portraitCaption { position:absolute; right:0; bottom:-32px; font-size:10px; color:#667378; }
+@media(max-width:1100px){ .section { gap:3%; } .copy h2 { font-size:52px; } .scene { height:580px; } .connection { gap:7px; font-size:9px; } .connection > i:not(:first-child) { width:14px; } .annotation { padding:23px; } }
+@media(max-width:760px){ .section { display:flex; flex-direction:column; padding:70px 24px 65px; align-items:stretch; gap:42px; } .copy h2 { font-size:43px; line-height:1.1; } .copy > p { margin-top:23px; font-size:14px; max-width:300px; } .connection { margin-top:28px; font-size:9px; gap:10px; } .scene { height:480px; } .portrait { left:8%; } .frost { width:20%; top:17%; height:65%; } .clear { left:12%; right:-8px; height:180px; bottom:1%; } .annotation { padding:23px; } .annotation > div > span { font-size:46px; } .annotation svg { width:105px; } .annotation > p { font-size:9px; margin-top:17px; } .portraitCaption { font-size:9px; } }

@@ -1,159 +1,49 @@
 import { useLayoutEffect } from "react";
-import { gsap, prefersReducedMotion } from "../../../motion/gsap.js";
-
-function curve(from, to) {
-  const midX = (from.x + to.x) / 2;
-  const midY = (from.y + to.y) / 2;
-  const dx = to.x - from.x;
-  const dy = to.y - from.y;
-  const len = Math.hypot(dx, dy) || 1;
-  return `M ${from.x} ${from.y} Q ${midX + (-dy / len) * 22} ${midY + (dx / len) * 22} ${to.x} ${to.y}`;
-}
-
-function center(el, origin) {
-  const rect = el.getBoundingClientRect();
-  return {
-    x: rect.left + rect.width / 2 - origin.left,
-    y: rect.top + rect.height / 2 - origin.top,
-  };
-}
+import { gsap } from "../../../motion/gsap.js";
 
 export function useGlassHeroMotion(rootRef) {
   useLayoutEffect(() => {
     const root = rootRef.current;
-    if (!root) return undefined;
-
-    const reduced = prefersReducedMotion();
-    const desktop = window.matchMedia("(min-width: 981px)").matches;
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    let drawn = reduced;
-    let onMove;
-    let onResize;
-
-    const layoutPaths = (mode) => {
-      const svg = root.querySelector("[data-gold]");
-      const paths = [...root.querySelectorAll("[data-path]")];
-      const links = [
-        ["sleep", "left"],
-        ["food", "left"],
-        ["energy", "right"],
-      ].map(([from, side]) => ({
-        from: root.querySelector(`[data-from="${from}"]`),
-        to: root.querySelector(`[data-anchor="${side}"]`),
-      }));
-      if (!svg || paths.length !== 3 || links.some((link) => !link.from || !link.to)) return;
+    const path = root.querySelector("[data-path]");
+    const svg = root.querySelector("[data-gold]");
+    const align = () => {
       const box = svg.getBoundingClientRect();
-      if (box.width < 8) return;
-
-      links.forEach((link, index) => {
-        const path = paths[index];
-        path.setAttribute("d", curve(center(link.from, box), center(link.to, box)));
-        const length = path.getTotalLength() || 1;
-        const progress = mode === "full" || drawn ? 1 : 0;
-        path.style.strokeDasharray = `${length}`;
-        path.style.strokeDashoffset = `${(1 - progress) * length}`;
+      const points = ["sleep", "food", "energy", "biomarker"].map((name) => {
+        const r = root.querySelector(`[data-connect="${name}"]`).getBoundingClientRect();
+        return [r.left + r.width / 2 - box.left, r.top + r.height / 2 - box.top];
       });
+      path.setAttribute("d", points.map(([x,y],i)=>`${i ? "L" : "M"}${x} ${y}`).join(" "));
+      root.dispatchEvent(new Event("optical-align"));
     };
-
-    const ctx = gsap.context(() => {
-      layoutPaths(reduced ? "full" : "hidden");
-      if (reduced) return;
-
-      const lines = root.querySelectorAll("[data-title-line]");
-      const main = root.querySelector("[data-main]");
-      const secondary = root.querySelector("[data-secondary]");
-      const signals = root.querySelectorAll("[data-signal]");
-      const paths = root.querySelectorAll("[data-path]");
-      const lead = root.querySelector("[data-lead]");
-      const cta = root.querySelector("[data-cta]");
-      const light = root.querySelector("[data-light]");
-
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      if (light) tl.fromTo(light, { opacity: 0 }, { opacity: 1, duration: 0.9 }, 0);
-      tl.fromTo(lines, { yPercent: 110 }, { yPercent: 0, duration: 1.1, stagger: 0.08, ease: "power4.out" }, 0.12);
-      tl.fromTo(main, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 1.15 }, 0.42);
-      tl.fromTo([secondary, ...signals], { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85, stagger: 0.1 }, 0.72);
-      paths.forEach((path, index) => {
-        const length = path.getTotalLength?.() || 0;
-        if (!length) return;
-        tl.fromTo(
-          path,
-          { strokeDashoffset: length },
-          { strokeDashoffset: 0, duration: 1.05, ease: "power3.out" },
-          0.96 + index * 0.08,
-        );
-      });
-      tl.fromTo([lead, cta], { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.08 }, 1.2);
-      tl.call(() => {
-        drawn = true;
-        layoutPaths("full");
-      });
-
-      if (desktop) {
-        const bg = root.querySelector('[data-scroll="bg"]');
-        const sheet = root.querySelector('[data-scroll="sheet"]');
-        const sleep = root.querySelector('[data-scroll="secondary"]');
-        const plane = root.querySelector('[data-scroll="main"]');
-        const marks = root.querySelector('[data-scroll="signals"]');
-        const copy = root.querySelector('[data-scroll="fore"]');
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: root,
-              start: "top top",
-              end: "+=70%",
-              scrub: 1,
-              onUpdate: () => {
-                if (drawn) layoutPaths("full");
-              },
-            },
-          })
-          .to(bg, { y: 18, ease: "none" }, 0)
-          .to(sheet, { y: 34, ease: "none" }, 0)
-          .to(sleep, { y: -26, x: -14, ease: "none" }, 0)
-          .to(plane, { y: 16, ease: "none" }, 0)
-          .to(marks, { y: 30, x: 12, ease: "none" }, 0)
-          .to(copy, { y: -42, ease: "none" }, 0);
-      }
-
-      if (desktop && fine) {
-        const pans = [
-          { el: root.querySelector('[data-pan="bg"]'), max: 2 },
-          { el: root.querySelector('[data-pan="sheet"]'), max: 3 },
-          { el: root.querySelector('[data-pan="secondary"]'), max: 5 },
-          { el: root.querySelector('[data-scroll="signals"] [data-pan="secondary"]'), max: 5 },
-          { el: root.querySelector('[data-pan="main"]'), max: 7 },
-          { el: root.querySelector('[data-pan="fore"]'), max: 3 },
-        ].filter((item) => item.el);
-
-        const movers = pans.map((item) => ({
-          ...item,
-          xTo: gsap.quickTo(item.el, "x", { duration: 0.9, ease: "power3.out" }),
-          yTo: gsap.quickTo(item.el, "y", { duration: 0.9, ease: "power3.out" }),
-        }));
-
-        onMove = (event) => {
-          const rect = root.getBoundingClientRect();
-          const nx = (event.clientX - rect.left) / rect.width - 0.5;
-          const ny = (event.clientY - rect.top) / rect.height - 0.5;
-          movers.forEach((item) => {
-            item.xTo(nx * 2 * item.max);
-            item.yTo(ny * 2 * item.max);
-          });
-          if (drawn) layoutPaths("full");
-        };
-        root.addEventListener("pointermove", onMove);
-      }
-
-      onResize = () => layoutPaths(drawn ? "full" : "hidden");
-      window.addEventListener("resize", onResize);
-    }, root);
-
-    return () => {
-      if (onResize) window.removeEventListener("resize", onResize);
-      if (onMove) root.removeEventListener("pointermove", onMove);
-      ctx.revert();
-    };
-  }, []);
+    const resize = new ResizeObserver(align);
+    resize.observe(root);
+    const mm = gsap.matchMedia();
+    mm.add({ desktop:"(min-width: 981px) and (pointer: fine)", motion:"(prefers-reduced-motion: no-preference)" }, ({conditions}) => {
+      align();
+      if (!conditions.motion) return undefined;
+      const tl = gsap.timeline({defaults:{ease:"power3.out"},onComplete:align});
+      tl.from(root.querySelector("[data-environment]"),{opacity:0,duration:1.2},0)
+        .from(root.querySelectorAll("[data-title-line]"),{yPercent:110,duration:1.2,stagger:.09},.15)
+        .from(root.querySelector("[data-rear]"),{opacity:0,y:18,duration:1.2},.35)
+        .from(root.querySelector("[data-primary]"),{opacity:0,y:24,scale:.98,filter:"blur(5px)",duration:1.1},.6)
+        .from(root.querySelectorAll("[data-secondary]"),{opacity:0,y:14,duration:.9,stagger:.1},.85)
+        .from(path,{strokeDasharray:path.getTotalLength(),strokeDashoffset:path.getTotalLength(),duration:1.3},1.05)
+        .from(root.querySelector("[data-cta]"),{opacity:0,y:10,duration:.8},1.2);
+      if (!conditions.desktop) return undefined;
+      const movers = [...root.querySelectorAll("[data-pan]")].map(el=>({max:Number(el.dataset.pan),x:gsap.quickTo(el,"x",{duration:1.1,ease:"power3.out"}),y:gsap.quickTo(el,"y",{duration:1.1,ease:"power3.out"})}));
+      let frame = 0;
+      const move = (event) => {
+        const r = root.getBoundingClientRect();
+        const x = (event.clientX-r.left)/r.width-.5, y=(event.clientY-r.top)/r.height-.5;
+        movers.forEach(m=>{m.x(x*2*m.max);m.y(y*2*m.max);});
+        root.style.setProperty("--light-x",`${x*36}px`);
+        root.style.setProperty("--light-y",`${y*28}px`);
+        if (!frame) frame=requestAnimationFrame(()=>{align();frame=0;});
+      };
+      const leave=()=>movers.forEach(m=>{m.x(0);m.y(0);});
+      root.addEventListener("pointermove",move); root.addEventListener("pointerleave",leave);
+      return ()=>{root.removeEventListener("pointermove",move);root.removeEventListener("pointerleave",leave);cancelAnimationFrame(frame);};
+    },root);
+    return ()=>{mm.revert();resize.disconnect();};
+  },[rootRef]);
 }

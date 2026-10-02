@@ -1,127 +1,35 @@
 import { useRef } from "react";
-import { Picture } from "../../../components/Picture.jsx";
 import { useGlassHeroMotion } from "../motion/useGlassHeroMotion.js";
 import { GlassButton } from "./GlassButton.jsx";
+import { LiquidGlass } from "./LiquidGlass.jsx";
+import { SignalDot, MicroSparkline, GlassLabel } from "./Signals.jsx";
 import styles from "./GlassHero.module.css";
-
-function Refract({ x = 8, y = -4 }) {
-  return (
-    <span className={styles.refract} style={{ "--dx": `${x}px`, "--dy": `${y}px` }} aria-hidden="true">
-      <img src="/images/hc-hero-1280.webp" alt="" />
-    </span>
-  );
-}
 
 export function GlassHero({ onSurvey }) {
   const rootRef = useRef(null);
   useGlassHeroMotion(rootRef);
-
-  return (
-    <section className={styles.hero} id="top" ref={rootRef}>
-      <div className={styles.placeBg} data-scroll="bg">
-        <div className={styles.shift} data-pan="bg">
-          <div className={styles.space}>
-            <div className={styles.light} data-light />
-            <div className={styles.env} data-env>
-              <Picture name="hero" alt="" className={styles.envImg} priority />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.field}>
-        <div className={styles.placeSheet} data-scroll="sheet">
-          <div className={styles.shift} data-pan="sheet">
-            <div className={styles.sheet} data-sheet aria-hidden="true">
-              <Refract x={14} y={-8} />
-            </div>
-          </div>
-        </div>
-
-        <svg className={styles.paths} data-gold aria-hidden="true">
-          <path data-path />
-          <path data-path />
-          <path data-path />
-        </svg>
-
-        <div className={styles.placeSleep} data-scroll="secondary">
-          <div className={styles.shift} data-pan="secondary">
-            <aside className={styles.sleep} data-secondary>
-              <Refract x={-10} y={6} />
-              <div className={styles.pane}>
-                <i className={styles.dot} data-from="sleep" />
-                <p className={styles.label}>Сон</p>
-                <p className={styles.sleepValue}>7:32</p>
-                <p className={styles.delta}>+24 мин</p>
-              </div>
-            </aside>
-          </div>
-        </div>
-
-        <div className={styles.placeMain} data-scroll="main">
-          <div className={styles.shift} data-pan="main">
-            <article className={styles.main} data-main>
-              <Refract x={-6} y={4} />
-              <span className={`${styles.anchor} ${styles.anchorLeft}`} data-anchor="left" />
-              <span className={`${styles.anchor} ${styles.anchorRight}`} data-anchor="right" />
-              <div className={styles.pane}>
-                <p className={styles.label}>Ферритин</p>
-                <p className={styles.value}>42</p>
-                <p className={styles.unit}>нг/мл</p>
-                <span className={styles.rule} aria-hidden="true" />
-                <p className={styles.meta}>Динамика за 3 месяца</p>
-                <p className={styles.demo}>Demo</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div className={styles.placeSignals} data-scroll="signals">
-          <div className={styles.shift} data-pan="secondary">
-            <p className={`${styles.signal} ${styles.food}`} data-signal>
-              <i className={styles.dot} data-from="food" />
-              <span>
-                <small>Питание</small>
-                Фокус недели
-              </span>
-            </p>
-            <p className={`${styles.signal} ${styles.energy}`} data-signal>
-              <i className={styles.dot} data-from="energy" />
-              <span>
-                <small>Энергия</small>
-                Стабильно
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.placeFore} data-scroll="fore">
-        <div className={styles.shift} data-pan="fore">
-          <div className={styles.copy} data-copy>
-            <h1 className={styles.title}>
-              <span className={styles.mask}>
-                <span data-title-line>Данные</span>
-              </span>
-              <span className={styles.mask}>
-                <span data-title-line>складываются</span>
-              </span>
-              <span className={styles.mask}>
-                <span data-title-line>в целую картину.</span>
-              </span>
-            </h1>
-            <p className={styles.lead} data-lead>
-              Анализы, цели и привычки — в одной системе персонального сопровождения.
-            </p>
-            <div className={styles.actions} data-cta>
-              <GlassButton onClick={onSurvey}>Пройти мини-опрос</GlassButton>
-              <a className={styles.more} href="#process">
-                Как это работает <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <section className={styles.hero} id="top" ref={rootRef} data-optical-scene>
+    <div className={styles.environment} data-pan="2" data-environment><img src="/images/glass-atrium.jpg" alt="" data-optical-source fetchPriority="high"/><div className={styles.wash}/></div>
+    <div className={styles.copy}>
+      <p className={styles.edition}><SignalDot/> Healthcode <span>/</span> Glass Lab</p>
+      <h1 className={styles.title}><span className={styles.mask}><span data-title-line>Данные</span></span><span className={styles.mask}><span data-title-line>складываются</span></span><span className={styles.mask}><span data-title-line>в целую картину.</span></span></h1>
+      <p className={styles.lead}>Анализы, цели и привычки —<br/>в одной системе персонального сопровождения.</p>
+      <div className={styles.actions} data-cta><GlassButton onClick={onSurvey}>Пройти мини-опрос</GlassButton><a href="#process">Как это работает <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <div className={styles.field}>
+      <div className={styles.rear} data-pan="4" data-rear><LiquidGlass radius={36} blur={12} className={styles.sheet}><span className={styles.sheetCaption}>Персональная система <span>01 / 05</span></span><span className={styles.sheetRule}/></LiquidGlass></div>
+      <svg className={styles.paths} data-gold aria-hidden="true"><path data-path/><g data-path-nodes/></svg>
+      <div className={styles.sleep} data-pan="6" data-secondary><LiquidGlass radius={16} blur={12}><div className={styles.sleepInner}><GlassLabel>Сон</GlassLabel><p>7:32</p><span className={styles.delta}><SignalDot data-connect="sleep"/> +24 мин</span></div></LiquidGlass></div>
+      <div className={styles.primary} data-pan="9" data-primary><LiquidGlass radius={"30px"} depth="foreground" refraction="medium" interactive className={styles.lens}><div className={styles.metric}>
+        <div className={styles.metricTop}><GlassLabel>Ферритин</GlassLabel><span className={styles.demo}>DEMO</span></div>
+        <p className={styles.value}>42<span>нг/мл</span></p>
+        <MicroSparkline/>
+        <div className={styles.metricFoot}><SignalDot data-connect="biomarker"/><p>Динамика<br/>за 3 месяца</p><span>↗</span></div>
+      </div></LiquidGlass></div>
+      <div className={styles.nutrition} data-pan="5" data-secondary><SignalDot data-connect="food"/><div><GlassLabel>Питание</GlassLabel><p>Фокус недели</p><span className={styles.smallLine}/></div></div>
+      <div className={styles.energy} data-pan="7" data-secondary><SignalDot data-connect="energy"/><div><GlassLabel>Энергия</GlassLabel><p>Стабильно</p></div></div>
+      <p className={styles.foreground} data-pan="4">Ваши сигналы.<br/>В едином контексте.</p>
+    </div>
+    <div className={styles.footer}><a href="#process"><span>↓</span> От сигнала — к действию</a><span>Демонстрационные данные</span></div>
+  </section>;
 }

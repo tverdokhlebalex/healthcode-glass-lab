@@ -1,66 +1,31 @@
-.section {
-  position: relative;
-  overflow: clip;
-  min-height: 88svh;
-  display: grid;
-  align-items: center;
-  padding: 96px 24px 140px;
-  background: #f7f8f7;
-}
-
-.orb {
-  position: absolute;
-  top: 50%;
-  left: 58%;
-  width: min(72vw, 720px);
-  aspect-ratio: 1;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.12) 46%, transparent 70%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  transform: translate(-20%, -50%);
-  pointer-events: none;
-}
-
-.copy {
-  position: relative;
-  z-index: 1;
-  max-width: 720px;
-}
-
-.title {
-  font-size: clamp(42px, 7vw, 92px);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-  text-transform: uppercase;
-}
-
-.title span {
-  display: block;
-}
-
-.lead {
-  max-width: 34ch;
-  margin: 22px 0 32px;
-  color: #30322f;
-  font-size: 17px;
-  line-height: 1.45;
-}
-
-@media (min-width: 981px) {
-  .section {
-    padding: 120px 80px 160px;
-  }
-
-  .orb {
-    backdrop-filter: blur(30px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .orb {
-    backdrop-filter: none;
-  }
-}
+.section { position:relative; display:grid; grid-template-columns:1.1fr 1fr; align-items:center; min-height:820px; padding:100px 5.2% 150px; background:#edf2f3; overflow:hidden; }
+.copy { position:relative; z-index:4; }
+.copy h2 { font-size:clamp(48px,4.7vw,80px); font-weight:400; line-height:1.07; letter-spacing:-.04em; }
+.copy > p { margin-top:29px; font-size:16px; line-height:1.7; color:#506168; }
+.copy > button { margin-top:34px; }
+.commitment { display:flex; align-items:center; gap:13px; margin-top:18px; font-size:10px; color:#53666e; }
+.commitment i { width:3px; height:3px; border-radius:50%; background:#9caeb5; }
+.scene { position:relative; height:540px; }
+.environment { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:72% 50%; opacity:.25; mask-image:radial-gradient(ellipse,#000,transparent 65%); }
+.outer,.middle { position:absolute; border-radius:30%; box-shadow:inset 1px 1px 1px #ffffffec,inset -2px -2px 2px #758f9c40,0 20px 36px -25px #344a6445; background:linear-gradient(135deg,#ffffff2e,#dae4e622); }
+.outer { inset:8% 3% 9% 6%; transform:rotate(-18deg); }
+.middle { inset:14% 10% 15% 13%; transform:rotate(13deg); }
+.lens { position:absolute; inset:21% 17% 22% 20%; }
+.center { display:flex; height:100%; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+.focusPoint { width:8px; height:8px; border-radius:50%; background:var(--gl-gold); margin-top:20px; }
+.center p { margin-top:25px; font-size:21px; line-height:1.4; letter-spacing:-.025em; }
+.signal { position:absolute; font-size:10px; color:#566a72; display:flex; align-items:center; gap:10px; }
+.signal b { font-weight:400; font-size:16px; color:#263e48; }
+.sleep { left:1%; top:12%; }
+.energy { right:1%; top:17%; }
+.food { left:0; bottom:18%; }
+.data { right:1%; bottom:19%; }
+.opticCaption { position:absolute; bottom:0; left:0; right:0; text-align:center; font-size:10px; color:#566b73; }
+.opticCaption span { padding:0 16px; color:#9c7a3e; }
+.footer { position:absolute; bottom:36px; left:5.2%; right:5.2%; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #64778026; padding-top:23px; font-size:10px; color:#546871; }
+.footer > span:first-child { font-size:12px; }
+.footer i { padding:0 12px; color:#8e9ca2; font-style:normal; }
+.footer a { text-decoration:none; color:#3f565f; margin-right:280px; }
+@media(min-width:1700px){ .scene { height:640px; } .section { min-height:920px; } }
+@media(max-width:1100px){ .section { grid-template-columns:1fr 1fr; gap:20px; } .copy h2 { font-size:52px; } .scene { height:470px; } .center p { font-size:18px; } .footer > span:nth-child(2) { display:none; } }
+@media(max-width:760px){ .section { display:flex; flex-direction:column; align-items:stretch; padding:72px 24px 145px; gap:40px; } .copy h2 { font-size:43px; } .copy > p { margin-top:24px; font-size:14px; } .copy > button { width:auto; margin-top:27px; } .commitment { font-size:10px; } .scene { height:360px; } .signal { font-size:9px; } .signal b { font-size:13px; } .center p { font-size:17px; margin-top:19px; } .opticCaption { font-size:9px; } .opticCaption span { padding:0 8px; } .footer { left:24px; right:24px; bottom:82px; padding-top:20px; } .footer a { margin:0; } .footer > span:first-child { font-size:10px; } .focusPoint { width:6px; height:6px; } }

@@ -32,5 +32,5 @@ export function useGlassReveal(rootRef) {
     }, root);
 
     return () => ctx.revert();
-  }, []);
+  }, [rootRef]);
 }
