@@ -4,11 +4,11 @@
 .glass[data-variant="frosted"] { --glass-tint: rgba(255,255,255,.26); }
 .defs { position: absolute; width: 0; height: 0; pointer-events: none; }
 .transmission, .tint, .edge, .specular { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
-.transmission { z-index: -3; overflow: hidden; opacity: .86; }
-.replica { position: absolute; display: block; background-size: cover; background-repeat: no-repeat; transform: scale(1.028) translate(2px,-1px); filter: var(--distortion) var(--source-filter, brightness(1)) blur(.6px) contrast(1.04); }
+.transmission { z-index: -3; overflow: hidden; opacity: var(--glass-transmission, .86); }
+.replica { position: absolute; display: block; background-size: cover; background-repeat: no-repeat; transform: scale(var(--glass-magnification, 1.028)) translate(2px,-1px); filter: var(--distortion) var(--source-filter, brightness(1)) blur(.6px) contrast(var(--glass-contrast, 1.04)); }
 .tint { z-index: -2; overflow: hidden; background: linear-gradient(115deg, #ffffff2b, #ffffff08 38%, #b9c4c30c 70%, #ffffff12); backdrop-filter: blur(var(--glass-blur)) saturate(123%) contrast(104%); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(123%) contrast(104%); }
 .glass[data-refraction="low"] .tint, .glass[data-refraction="medium"] .tint, .glass[data-refraction="high"] .tint { backdrop-filter: blur(1.5px) saturate(123%) contrast(104%); -webkit-backdrop-filter: blur(1.5px) saturate(123%) contrast(104%); }
-.specular { z-index: -1; overflow: hidden; }
+.specular { z-index: -1; overflow: hidden; opacity: var(--glass-reflection, 1); }
 .specular::before { position: absolute; inset: -30px; content: ""; background: radial-gradient(ellipse at 12% 3%, #ffffff9c 0, #ffffff26 24%, transparent 50%), linear-gradient(122deg, transparent 27%, #ffffff59 28%, #ffffff0d 34%, transparent 40%, transparent 75%, #ffffff33 100%); transform: translate(var(--light-x),var(--light-y)); transition: transform 800ms cubic-bezier(.22,1,.36,1); }
 .edge { z-index: 2; padding: 1px; background: linear-gradient(138deg, #fff 0%, #ffffff9e 22%, #fff3 47%, #58606452 77%, #fff9 100%); mask: linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); mask-composite: exclude; -webkit-mask: linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite: xor; }
 .glass::after { content: ""; position: absolute; inset: 4px; z-index: 2; border-radius: max(0px,calc(var(--glass-radius) - 4px)); box-shadow: inset 1px 1px 0 #ffffff7d, inset -1px -1px 0 #58646621; pointer-events: none; }
@@ -17,7 +17,7 @@
 .glass[data-variant="smoked"] .specular { opacity: .16; }
 .glass[data-variant="smoked"] .edge { opacity: .5; }
 .glass[data-variant="frosted"] .transmission { opacity: .45; }
-@media(max-width: 760px) { .replica { filter: blur(1px) contrast(1.04); transform: scale(1.016); } .glass { --glass-blur: 12px !important; } }
+@media(max-width: 760px) { .replica { filter: blur(1px) contrast(1.04); transform: scale(1.016); } .glass { --glass-blur: var(--glass-mobile-blur, 12px) !important; } }
 @media(prefers-reduced-motion: reduce) { .specular::before { transform: none; transition: none; } .replica { filter: blur(.6px) contrast(1.04); } }
 @supports not (backdrop-filter: blur(1px)) { .tint { background: #eef2f1c9; } .glass[data-variant="smoked"] .tint { background: #222a2ce8; } }
 .glass[data-variant="smoked"] .replica { filter:var(--distortion) blur(2px) brightness(.8) saturate(.15); }

@@ -8,7 +8,7 @@ const PATHS = ["M190 170H310Q350 170 350 210V250Q350 290 390 290H600", "M407 78V
 export function GlassData() {
   const root = useRef(null); useGlassDataMotion(root);
   return <section className={styles.section} id="process" ref={root}>
-    <div className={styles.head}><h2>Разрозненные данные<br/>становятся системой.</h2><p>Каждый сигнал важен.<br/>Вместе — они значат больше.</p></div>
+    <div className={styles.head}><h2>Разрозненные сигналы<br/>становятся системой.</h2><p>Каждый сигнал важен.<br/>Вместе — они значат больше.</p></div>
     <div className={styles.field} data-optical-scene>
       <img className={styles.environment} data-optical-source src="/images/glass-atrium.jpg" alt="" loading="lazy"/>
       <div className={styles.horizon} aria-hidden="true"/>

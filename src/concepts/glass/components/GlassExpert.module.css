@@ -6,8 +6,8 @@
 .scene { position:relative; height:640px; }
 .portrait { position:absolute; inset:0 0 0 10%; overflow:hidden; border-radius:2px; }
 .portrait picture,.portrait img { width:100%; height:100%; object-fit:cover; object-position:50% 30%; }
-.frost { position:absolute; left:0; top:15%; width:23%; height:73%; }
-.clear { position:absolute; left:16%; right:-2%; bottom:2%; height:200px; }
+.transition { --glass-mobile-blur:2px; --glass-reflection:.45; position:absolute; left:0; top:57%; width:23%; height:31%; background:linear-gradient(180deg,#ffffff06,#ffffff24 48%,#ffffff06); }
+.clear { --glass-mobile-blur:1px; position:absolute; left:16%; right:-2%; bottom:2%; height:200px; }
 .annotation { padding:26px 28px; }
 .annotation > span { color:#35474e; }
 .annotation > div { display:flex; justify-content:space-between; gap:30px; align-items:center; margin-top:12px; }
@@ -17,4 +17,4 @@
 .annotation > p { display:flex; gap:9px; align-items:center; margin-top:20px; font-size:10px; color:#2e444e; }
 .portraitCaption { position:absolute; right:0; bottom:-32px; font-size:10px; color:#667378; }
 @media(max-width:1100px){ .section { gap:3%; } .copy h2 { font-size:52px; } .scene { height:580px; } .connection { gap:7px; font-size:9px; } .connection > i:not(:first-child) { width:14px; } .annotation { padding:23px; } }
-@media(max-width:760px){ .section { display:flex; flex-direction:column; padding:70px 24px 65px; align-items:stretch; gap:42px; } .copy h2 { font-size:43px; line-height:1.1; } .copy > p { margin-top:23px; font-size:14px; max-width:300px; } .connection { margin-top:28px; font-size:9px; gap:10px; } .scene { height:480px; } .portrait { left:8%; } .frost { width:20%; top:17%; height:65%; } .clear { left:12%; right:-8px; height:180px; bottom:1%; } .annotation { padding:23px; } .annotation > div > span { font-size:46px; } .annotation svg { width:105px; } .annotation > p { font-size:9px; margin-top:17px; } .portraitCaption { font-size:9px; } }
+@media(max-width:760px){ .section { display:flex; flex-direction:column; padding:70px 24px 65px; align-items:stretch; gap:42px; } .copy h2 { font-size:43px; line-height:1.1; } .copy > p { margin-top:23px; font-size:14px; max-width:300px; } .connection { margin-top:28px; font-size:9px; gap:10px; } .scene { height:480px; } .portrait { left:8%; } .transition { width:20%; top:59%; height:25%; } .clear { left:12%; right:-8px; height:180px; bottom:1%; } .annotation { padding:23px; } .annotation > div > span { font-size:46px; } .annotation svg { width:105px; } .annotation > p { font-size:9px; margin-top:17px; } .portraitCaption { font-size:9px; } }
