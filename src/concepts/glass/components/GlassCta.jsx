@@ -3,6 +3,7 @@ import { gsap } from "../../../motion/gsap.js";
 import { GlassButton } from "./GlassButton.jsx";
 import { LiquidGlass } from "./LiquidGlass.jsx";
 import { SignalDot } from "./Signals.jsx";
+import { assetPath } from "../../../media.js";
 import styles from "./GlassCta.module.css";
 export function GlassCta({onSurvey}) {const root=useRef(null);
   useLayoutEffect(()=>{const mm=gsap.matchMedia();mm.add({motion:"(prefers-reduced-motion: no-preference)",desktop:"(min-width:761px)"},({conditions})=>{
@@ -15,7 +16,7 @@ export function GlassCta({onSurvey}) {const root=useRef(null);
   },root.current);return()=>mm.revert();},[]);
   return <section className={styles.section} id="about" ref={root}>
     <div className={styles.copy}><h2>Начните<br/>с первого сигнала.</h2><p>Ответьте на несколько вопросов,<br/>чтобы определить подходящий<br/>формат сопровождения.</p><GlassButton onClick={onSurvey}>Пройти мини-опрос</GlassButton><span className={styles.commitment}>≈ 2 минуты <i/> Без обязательств</span></div>
-    <div className={styles.scene} data-optical-scene><img className={styles.environment} src="/images/glass-atrium.jpg" alt="" loading="lazy" data-optical-source/>
+    <div className={styles.scene} data-optical-scene><img className={styles.environment} src={assetPath("/images/glass-atrium.jpg")} alt="" loading="lazy" data-optical-source/>
       <div className={styles.rear} aria-hidden="true"/>
       <LiquidGlass className={styles.lens} radius={24} refraction="medium" depth="foreground" blur={12} interactive>
         <svg className={styles.connections} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">

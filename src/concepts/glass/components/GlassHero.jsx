@@ -4,12 +4,13 @@ import { GlassButton } from "./GlassButton.jsx";
 import { LiquidGlass } from "./LiquidGlass.jsx";
 import { SignalDot, MicroSparkline, GlassLabel } from "./Signals.jsx";
 import styles from "./GlassHero.module.css";
+import { assetPath } from "../../../media.js";
 
 export function GlassHero({ onSurvey }) {
   const rootRef = useRef(null);
   useGlassHeroMotion(rootRef);
   return <section className={styles.hero} id="top" ref={rootRef} data-optical-scene>
-    <div className={styles.environment} data-pan="2" data-environment><img src="/images/glass-atrium.jpg" alt="" data-optical-source fetchPriority="high"/><div className={styles.wash}/></div>
+    <div className={styles.environment} data-pan="2" data-environment><img src={assetPath("/images/glass-atrium.jpg")} alt="" data-optical-source fetchPriority="high"/><div className={styles.wash}/></div>
     <div className={styles.copy}>
       <p className={styles.edition}><SignalDot/> Healthcode <span>/</span> Glass Lab</p>
       <h1 className={styles.title}><span className={styles.mask}><span data-title-line>Данные</span></span><span className={styles.mask}><span data-title-line>складываются</span></span><span className={styles.mask}><span data-title-line>в целую картину.</span></span></h1>

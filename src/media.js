@@ -6,11 +6,15 @@ export const MEDIA = {
   expert: { widths: [800, 864], width: 864, height: 1152 },
 };
 
+export function assetPath(path) {
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+}
+
 export function srcSet(name, format) {
-  return MEDIA[name].widths.map((w) => `/images/hc-${name}-${w}.${format} ${w}w`).join(", ");
+  return MEDIA[name].widths.map((w) => `${assetPath(`/images/hc-${name}-${w}.${format}`)} ${w}w`).join(", ");
 }
 
 export function fallback(name) {
   const { widths } = MEDIA[name];
-  return `/images/hc-${name}-${widths[widths.length - 1]}.webp`;
+  return assetPath(`/images/hc-${name}-${widths[widths.length - 1]}.webp`);
 }

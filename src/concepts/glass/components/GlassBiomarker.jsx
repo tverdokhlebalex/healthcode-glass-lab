@@ -2,6 +2,7 @@ import { useId, useRef, useState } from "react";
 import { useGlassBiomarkerMotion } from "../motion/useGlassBiomarkerMotion.js";
 import { LiquidGlass } from "./LiquidGlass.jsx";
 import { GlassLabel, SignalDot } from "./Signals.jsx";
+import { assetPath } from "../../../media.js";
 import styles from "./GlassBiomarker.module.css";
 
 const DATES=["12 июля","9 августа","6 сентября","2 октября"];
@@ -19,7 +20,7 @@ export function GlassBiomarker() {
   const points=item.values.map((v,i)=>[34+i*196,218-v/item.max*185]);
   const line=curve(points);
   return <section className={styles.section} id="product" ref={root} data-optical-scene>
-    <img className={styles.environment} src="/images/glass-atrium.jpg" alt="" loading="lazy" data-optical-source/>
+    <img className={styles.environment} src={assetPath("/images/glass-atrium.jpg")} alt="" loading="lazy" data-optical-source/>
     <div className={styles.head}><h2>У каждого значения<br/>есть своя история.</h2><span><SignalDot/> Optical data lab <b>DEMO</b></span></div>
     <div className={styles.lab}>
       <nav className={styles.index} aria-label="Выбрать демонстрационный биомаркер">{SERIES.map((series,i)=><button type="button" key={series.name} aria-pressed={selected===i} onClick={()=>{setSelected(i);setActive(3);}}><span>0{i+1}</span><span>{series.name}</span><i aria-hidden="true">↗</i></button>)}</nav>

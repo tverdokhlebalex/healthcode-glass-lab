@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useGlassDataMotion } from "../motion/useGlassDataMotion.js";
 import { LiquidGlass } from "./LiquidGlass.jsx";
 import { SignalDot, MicroSparkline, GlassLabel } from "./Signals.jsx";
+import { assetPath } from "../../../media.js";
 import styles from "./GlassData.module.css";
 
 const PATHS = ["M190 170H310Q350 170 350 210V250Q350 290 390 290H600", "M407 78V130Q407 155 440 155H525Q560 155 560 190V270", "M180 450H305Q345 450 345 410V360Q345 335 390 335H610", "M1015 150H885Q855 150 855 190V250Q855 285 815 285H690", "M1050 460H900Q865 460 865 425V375Q865 350 825 350H690"];
@@ -10,7 +11,7 @@ export function GlassData() {
   return <section className={styles.section} id="process" ref={root}>
     <div className={styles.head}><h2>Разрозненные сигналы<br/>становятся системой.</h2><p>Каждый сигнал важен.<br/>Вместе — они значат больше.</p></div>
     <div className={styles.field} data-optical-scene>
-      <img className={styles.environment} data-optical-source src="/images/glass-atrium.jpg" alt="" loading="lazy"/>
+      <img className={styles.environment} data-optical-source src={assetPath("/images/glass-atrium.jpg")} alt="" loading="lazy"/>
       <div className={styles.horizon} aria-hidden="true"/>
       <svg className={styles.lines} viewBox="0 0 1200 580" preserveAspectRatio="none" aria-hidden="true">{PATHS.map((d,i)=><g key={d}><path d={d} data-path/><circle r="3" data-impulse={i}/></g>)}</svg>
       <div className={`${styles.node} ${styles.labs}`} data-node><span className={styles.nodeIndex}>01</span><GlassLabel>Анализы</GlassLabel><p><strong>24</strong> показателя</p><MicroSparkline/><SignalDot/></div>
