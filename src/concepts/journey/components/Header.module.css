@@ -1,0 +1,20 @@
+.wrap { position:fixed; inset:0 0 auto; z-index:30; background:#ffffffed; backdrop-filter:blur(12px); border-bottom:1px solid #ded9e9; padding:0 5.2%; color:#262438; }
+.bar { display:flex; align-items:center; justify-content:space-between; gap:30px; min-height:80px; }
+.logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; font-size:20px; font-weight:600; letter-spacing:-.02em; }
+.logo small { display:block; margin-top:2px; color:#686174; font-size:10px; line-height:1.5; font-weight:400; letter-spacing:0; }
+.mark { position:relative; width:25px; height:25px; border:2px solid #5738b4; border-radius:50%; }
+.mark::after { content:""; position:absolute; top:-3px; right:-2px; width:8px; height:8px; background:#a5c338; border:2px solid #fff; border-radius:50%; }
+.mark i { position:absolute; width:5px; height:5px; top:8px; left:8px; border-radius:50%; background:#5738b4; }
+.nav { display:flex; gap:27px; }
+.nav a { position:relative; padding:12px 0; color:#535064; font-size:14px; text-decoration:none; }
+.nav a:hover,.nav a[aria-current] { color:#5738b4; }
+.nav a[aria-current]::after { content:""; position:absolute; bottom:3px; left:0; right:0; height:2px; background:#7650cb; }
+.actions { display:flex; gap:10px; align-items:center; }
+.short,.burger,.menu { display:none; }
+.burger { width:44px; height:44px; border:1px solid #d8d1e7; border-radius:10px; background:#f7f4fd; color:#5738b4; align-items:center; justify-content:center; }
+.menu { border-top:1px solid #e6dfef; padding:12px 0 20px; }
+.menu a { display:block; padding:14px; font-size:17px; color:#3e3356; text-decoration:none; border-radius:8px; }
+.menu a[aria-current] { background:#ede6fb; color:#5738b4; }
+@media(max-width:1100px) { .wrap { padding:0 24px; } .nav { gap:18px; } .logo small { display:none; } .nav a { font-size:13px; } }
+@media(max-width:900px) { .nav,.full { display:none; } .short { display:inline; } .burger { display:flex; } .menu { display:block; } .bar { gap:15px; min-height:72px; } .logo { font-size:19px; } }
+@media(max-width:380px) { .wrap { padding:0 16px; } .bar { gap:9px; } .logo { font-size:17px; gap:7px; } .actions { gap:7px; } }

@@ -1,0 +1,18 @@
+.section { padding:32px 5.2% 76px; background:#5738b4; color:#fff; }
+.topline { display:flex; justify-content:space-between; align-items:center; font-size:14px; color:#eee5ff; padding-bottom:42px; }
+.layout { display:grid; grid-template-columns:1fr 1fr; gap:9%; align-items:center; }
+.copy h2 { font-size:clamp(38px,3.8vw,58px); line-height:1.15; letter-spacing:-.025em; font-weight:600; }
+.copy p { font-size:18px; color:#f0e9ff; line-height:1.7; max-width:470px; margin-top:22px; }
+.section .copy button[data-primary] { background:#d9ef73; color:#293021; margin-top:30px; }
+.section .copy button[data-primary]:hover { background:#e6f79c; }
+.section .copy button[data-primary] > span:last-child { background:#eff8c6; }
+.note { display:block; font-size:13px; margin-top:14px; color:#e8defd; }
+.steps { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px; }
+.steps li { display:flex; gap:18px; }
+.number { flex:none; display:grid; place-items:center; width:36px; height:36px; background:#d9ef73; color:#293421; border-radius:50%; font-size:14px; font-weight:600; }
+.steps h3 { font-size:21px; font-weight:600; line-height:1.3; padding-top:4px; }
+.steps p { font-size:15px; color:#eee5ff; line-height:1.7; margin-top:10px; max-width:51ch; }
+.arrow { margin:14px 0 0; color:#d9ef73; }
+.footer { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:28px 5.2% 86px; background:#35234f; color:#ece4f5; font-size:12px; }
+.footer a { display:flex; align-items:center; gap:10px; font-size:18px; font-weight:600; text-decoration:none; color:#fff; }
+@media(max-width:760px) { .section { padding:28px 24px 45px; } .topline { font-size:13px; padding-bottom:27px; } .layout { display:flex; flex-direction:column; align-items:stretch; gap:38px; } .copy h2 { font-size:35px; line-height:1.2; } .copy p { font-size:16px; margin-top:18px; } .section .copy button[data-primary] { width:100%; margin-top:25px; } .steps li { gap:13px; } .number { width:30px; height:30px; font-size:13px; } .steps h3 { font-size:19px; padding-top:2px; } .steps p { font-size:15px; } .footer { flex-direction:column; align-items:flex-start; padding:30px 24px 100px; gap:12px; } }

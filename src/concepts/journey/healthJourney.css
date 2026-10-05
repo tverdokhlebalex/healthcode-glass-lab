@@ -1,0 +1,42 @@
+@font-face {
+  font-family: "Golos Text";
+  src: url("/fonts/golos-text-400.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Golos Text";
+  src: url("/fonts/golos-text-600.ttf") format("truetype");
+  font-weight: 500 700;
+  font-display: swap;
+}
+.health-journey {
+  --journey-font: "Golos Text", "Segoe UI", sans-serif;
+  --font: var(--journey-font);
+  --graphite: #202235;
+  --ink-2: #34374d;
+  --warm-white: #fff;
+  --soft-grey: #f2eefb;
+  --night: #2e2448;
+  --night-2: #392c56;
+  --deep-grey: #515268;
+  --mid-grey: #606176;
+  --faint-grey: #717084;
+  --gold: #7151c5;
+  --gold-dark: #5738b4;
+  --gold-light: #d9ef73;
+  --panel-line: #ddd8eb;
+  --header: 80px;
+  --infobar: 0px;
+  font-family: var(--journey-font);
+  color: var(--graphite);
+}
+.health-journey :is(h1,h2,h3) { text-wrap: balance; }
+.health-journey p { text-wrap: pretty; }
+.health-journey button[data-primary] { background:#5738b4; color:#fff; border-radius:12px; font-weight:600; letter-spacing:0; }
+.health-journey button[data-primary]:hover { background:#46278f; }
+.health-journey button[data-primary] > span:last-child { background:#d9ef73; color:#263020; border-radius:8px; }
+.health-journey :focus-visible { outline:3px solid #8061d2; outline-offset:4px; }
+.health-journey ::selection { background:#ded3ff; color:#291c4a; }
+html[data-concept="journey"] { scroll-padding-top:96px; }
+@media(max-width:760px) { html[data-concept="journey"] { scroll-padding-top:88px; } .health-journey { --header:72px; } }

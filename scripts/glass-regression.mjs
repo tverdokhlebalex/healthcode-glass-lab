@@ -138,22 +138,24 @@ function paths(output) {
 }
 function allowed(path) {
   return path.startsWith("src/concepts/glass/") ||
+    path.startsWith("src/concepts/journey/") || path === "src/App.jsx" ||
+    path.startsWith("public/fonts/") || path === "public/images/journey-food.webp" ||
     /^public\/images\/glass-[^/]+\.(?:avif|webp|png|jpg|jpeg|svg)$/.test(path) ||
     path.startsWith("docs/") || path.startsWith("scripts/") ||
     path === ".openai/hosting.json" || path === ".github/workflows/deploy-pages.yml" ||
     path === "index.html" || path === "src/media.js" || path === "vite.config.js";
 }
 
-test("tracked diff and untracked additions remain inside the Glass redesign scope", () => {
+test("tracked edits stay within authorized concepts, integration and deployment files", () => {
   const changed = paths(git("diff", "--name-only", "--no-renames", "-z", checkpoint, "--"));
   const added = paths(git("ls-files", "--others", "--exclude-standard", "-z"));
-  assert.deepEqual([...new Set([...changed, ...added])].filter((path) => !allowed(path)), [], "Unexpected edits outside Glass scope");
+  assert.deepEqual([...new Set([...changed, ...added])].filter((path) => !allowed(path)), [], "Unexpected edits outside authorized scope");
 });
 
-test("Future, Journey, shared routing, survey, global CSS, motion, dependencies and original assets match checkpoint bytes", () => {
+test("Future, shared routing, original survey, global CSS, motion and original assets match checkpoint bytes", () => {
   const baseline = paths(git("ls-tree", "-r", "--name-only", "-z", checkpoint));
   const deploymentFiles = new Set([".openai/hosting.json", ".github/workflows/deploy-pages.yml", "index.html", "src/media.js", "vite.config.js"]);
-  const protectedFiles = baseline.filter((path) => !path.startsWith("src/concepts/glass/") && !deploymentFiles.has(path));
+  const protectedFiles = baseline.filter((path) => !path.startsWith("src/concepts/glass/") && !path.startsWith("src/concepts/journey/") && path !== "src/App.jsx" && !deploymentFiles.has(path));
   assert.ok(protectedFiles.some((path) => path.startsWith("src/concepts/future/")));
   assert.ok(protectedFiles.some((path) => path.startsWith("src/shared/")));
   assert.ok(protectedFiles.some((path) => path.startsWith("public/images/")));
@@ -161,5 +163,14 @@ test("Future, Journey, shared routing, survey, global CSS, motion, dependencies 
     const expected = git("show", `${checkpoint}:${path}`);
     const actual = readFileSync(new URL(path, new URL("../", import.meta.url)));
     assert.ok(expected.equals(actual), `${path} changed from checkpoint ${checkpoint}`);
+  }
+});
+
+test("Glass Lab remains byte-identical to the published version before the Journey transfer", () => {
+  const published = "6a64bcb";
+  const files = paths(git("ls-tree", "-r", "--name-only", "-z", published, "--", "src/concepts/glass"));
+  assert.ok(files.length > 20);
+  for (const path of files) {
+    assert.ok(git("show", `${published}:${path}`).equals(readFileSync(new URL(path, new URL("../", import.meta.url)))), `${path} changed during the transfer`);
   }
 });
