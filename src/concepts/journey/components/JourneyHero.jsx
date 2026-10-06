@@ -64,10 +64,10 @@ export function JourneyHero({ onSurvey }) {
         {NODES.map((node) => (
           <article key={node.id} className={styles.node} data-pin data-place={node.id} data-depth={node.depth} data-active={node.id === "plan" ? "true" : undefined}>
             <i aria-hidden="true" />
-            <div className={styles.shift} data-trajectory-label>
-              <span className={styles.num}>{node.n}</span>
-              <strong>{node.title}</strong>
-              <p>{node.value}</p>
+            <div className={styles.shift}>
+              <span className={styles.num} data-trajectory-label>{node.n}</span>
+              <strong data-trajectory-label>{node.title}</strong>
+              <p data-trajectory-label>{node.value}</p>
             </div>
           </article>
         ))}

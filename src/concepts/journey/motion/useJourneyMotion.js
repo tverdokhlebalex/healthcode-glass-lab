@@ -95,7 +95,9 @@ export function useJourneyMotion(rootRef) {
           rect.setAttribute("fill", "black");
           rect.setAttribute("rx", "4");
           cutouts.appendChild(rect);
-          return { label, rect };
+          const textRange = document.createRange();
+          textRange.selectNodeContents(label);
+          return { textRange, rect };
         }) : [];
         let progress = 0;
         let drawn = reduced;
@@ -104,8 +106,8 @@ export function useJourneyMotion(rootRef) {
         const paint = () => {
           if (pins.length < 2 || svg.getBoundingClientRect().width < 8) return;
           const box = svg.getBoundingClientRect();
-          labels.forEach(({ label, rect }) => {
-            const bounds = label.getBoundingClientRect();
+          labels.forEach(({ textRange, rect }) => {
+            const bounds = textRange.getBoundingClientRect();
             rect.setAttribute("x", bounds.left - box.left - 5);
             rect.setAttribute("y", bounds.top - box.top - 4);
             rect.setAttribute("width", bounds.width + 10);
