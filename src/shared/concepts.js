@@ -18,7 +18,7 @@ const TITLES = {
 const THEMES = {
   future: "#FAFAF8",
   glass: "#F7F8F7",
-  journey: "#F4F5F4",
+  journey: "#F4F6F5",
 };
 
 export function isConcept(value) {

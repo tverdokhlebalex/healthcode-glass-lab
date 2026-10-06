@@ -9,11 +9,11 @@ html[data-concept="glass"] body {
 }
 
 html[data-concept="journey"] {
-  scroll-padding-top: 24px;
+  scroll-padding-top: 88px;
 }
 
 html[data-concept="journey"] body {
-  background: #f4f5f4;
-  color: #151615;
-  font-family: "Onest", "Manrope", "Segoe UI", sans-serif;
+  background: #f4f6f5;
+  color: #1a2426;
+  font-family: "Golos Text", "Segoe UI", sans-serif;
 }

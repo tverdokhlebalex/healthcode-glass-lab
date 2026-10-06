@@ -1,22 +1,27 @@
-import { Header } from "./components/Header.jsx";
-import { CinematicHero } from "./components/CinematicHero.jsx";
-import { ProductStage } from "./components/ProductStage.jsx";
-import { LifeSpread } from "./components/LifeSpread.jsx";
-import { Expertise } from "./components/Expertise.jsx";
-import { JourneyPath } from "./components/JourneyPath.jsx";
+import { useRef } from "react";
 import styles from "../../App.module.css";
+import { Header } from "./components/Header.jsx";
+import { JourneyHero } from "./components/JourneyHero.jsx";
+import { JourneySignal } from "./components/JourneySignal.jsx";
+import { JourneyLife } from "./components/JourneyLife.jsx";
+import { JourneyRoute } from "./components/JourneyRoute.jsx";
+import { JourneyClose } from "./components/JourneyClose.jsx";
+import { useJourneyMotion } from "./motion/useJourneyMotion.js";
 import "./healthJourney.css";
 
 export function HealthJourneyPage({ onSurvey }) {
+  const rootRef = useRef(null);
+  useJourneyMotion(rootRef);
+
   return (
-    <div className={`${styles.page} health-journey`}>
+    <div ref={rootRef} className={`${styles.page} health-journey`}>
       <Header onSurvey={onSurvey} />
       <main className={styles.main}>
-        <CinematicHero onSurvey={onSurvey} />
-        <ProductStage />
-        <LifeSpread />
-        <Expertise onSurvey={onSurvey} />
-        <JourneyPath onSurvey={onSurvey} />
+        <JourneyHero onSurvey={onSurvey} />
+        <JourneySignal />
+        <JourneyLife />
+        <JourneyRoute />
+        <JourneyClose onSurvey={onSurvey} />
       </main>
     </div>
   );

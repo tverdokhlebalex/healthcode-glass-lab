@@ -6,9 +6,9 @@ import styles from "./Header.module.css";
 
 const NAV = [
   { id: "about", label: "О платформе" },
-  { id: "life", label: "Питание" },
-  { id: "programs", label: "Программы" },
-  { id: "process", label: "Как начать" },
+  { id: "life", label: "Жизнь" },
+  { id: "programs", label: "Маршрут" },
+  { id: "start", label: "Старт" },
 ];
 
 export function Header({ onSurvey }) {
@@ -31,13 +31,13 @@ export function Header({ onSurvey }) {
   const links = NAV.map(item => <a key={item.id} href={`#${item.id}`} aria-current={active===item.id?"location":undefined} onClick={()=>setOpen(false)}>{item.label}</a>);
   return <header className={styles.wrap}>
     <div className={styles.bar}>
-      <a className={styles.logo} href="#top" onClick={()=>{setOpen(false);setActive("");}}><span className={styles.mark} aria-hidden="true"><i/></span><span>{BRAND_NAME}<small>Забота о себе — с понятным планом</small></span></a>
+      <a className={styles.logo} href="#top" onClick={()=>{setOpen(false);setActive("");}}><span className={styles.mark} aria-hidden="true" /><span>{BRAND_NAME}</span></a>
       <nav className={styles.nav} aria-label="Основная навигация">{links}</nav>
       <div className={styles.actions}>
         <Button data-primary size="sm" onClick={()=>{setOpen(false);onSurvey();}}><span className={styles.full}>Подобрать формат</span><span className={styles.short}>Начать</span></Button>
-        <button className={styles.burger} type="button" aria-expanded={open} aria-controls="future-menu" aria-label={open?"Закрыть меню":"Открыть меню"} onClick={()=>setOpen(!open)}>{open?<X size={21}/>:<Menu size={21}/>}</button>
+        <button className={styles.burger} type="button" aria-expanded={open} aria-controls="journey-menu" aria-label={open?"Закрыть меню":"Открыть меню"} onClick={()=>setOpen(!open)}>{open?<X size={21}/>:<Menu size={21}/>}</button>
       </div>
     </div>
-    {open&&<nav className={styles.menu} id="future-menu" aria-label="Мобильная навигация">{links}</nav>}
+    {open&&<nav className={styles.menu} id="journey-menu" aria-label="Мобильная навигация">{links}</nav>}
   </header>;
 }

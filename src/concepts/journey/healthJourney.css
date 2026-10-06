@@ -4,39 +4,118 @@
   font-weight: 400;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Golos Text";
   src: url("/fonts/golos-text-600.ttf") format("truetype");
   font-weight: 500 700;
   font-display: swap;
 }
+
 .health-journey {
   --journey-font: "Golos Text", "Segoe UI", sans-serif;
   --font: var(--journey-font);
-  --graphite: #202235;
-  --ink-2: #34374d;
-  --warm-white: #fff;
-  --soft-grey: #f2eefb;
-  --night: #2e2448;
-  --night-2: #392c56;
-  --deep-grey: #515268;
-  --mid-grey: #606176;
-  --faint-grey: #717084;
-  --gold: #7151c5;
-  --gold-dark: #5738b4;
-  --gold-light: #d9ef73;
-  --panel-line: #ddd8eb;
-  --header: 80px;
-  --infobar: 0px;
+  --ink: #1a2426;
+  --ink-soft: #3d5256;
+  --paper: #f4f6f5;
+  --aqua: #d7eef0;
+  --aqua-line: #1a7c84;
+  --butter: #f3e6a4;
+  --gold: #c6a56a;
+  --teal: #0e3e44;
+  --warm-white: #f4f6f5;
+  --header: 72px;
   font-family: var(--journey-font);
-  color: var(--graphite);
+  color: var(--ink);
+  background: var(--paper);
 }
-.health-journey :is(h1,h2,h3) { text-wrap: balance; }
-.health-journey p { text-wrap: pretty; }
-.health-journey button[data-primary] { background:#5738b4; color:#fff; border-radius:12px; font-weight:600; letter-spacing:0; }
-.health-journey button[data-primary]:hover { background:#46278f; }
-.health-journey button[data-primary] > span:last-child { background:#d9ef73; color:#263020; border-radius:8px; }
-.health-journey :focus-visible { outline:3px solid #8061d2; outline-offset:4px; }
-.health-journey ::selection { background:#ded3ff; color:#291c4a; }
-html[data-concept="journey"] { scroll-padding-top:96px; }
-@media(max-width:760px) { html[data-concept="journey"] { scroll-padding-top:88px; } .health-journey { --header:72px; } }
+
+.health-journey :is(h1, h2, h3) {
+  text-wrap: balance;
+}
+
+.health-journey p {
+  text-wrap: pretty;
+}
+
+.health-journey button[data-primary] {
+  background: var(--teal);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.health-journey button[data-primary]:hover {
+  background: #0a3338;
+}
+
+.health-journey button[data-primary] > span:last-child {
+  background: var(--butter);
+  color: #1a3324;
+}
+
+.health-journey :focus-visible {
+  outline: 3px solid #1a7c84;
+  outline-offset: 4px;
+}
+
+.health-journey ::selection {
+  background: #d7eef0;
+  color: #10282c;
+}
+
+.health-journey [data-plot] {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.health-journey [data-under],
+.health-journey [data-over] {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.health-journey [data-under] {
+  stroke: rgba(255, 255, 255, 0.92);
+  stroke-width: 3.5;
+}
+
+.health-journey [data-track] {
+  fill: none;
+  stroke: rgba(47, 143, 152, 0.28);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.health-journey [data-over] {
+  stroke: #2f8f98;
+  stroke-width: 1.75;
+  filter: drop-shadow(0 0 5px rgba(47, 143, 152, 0.4));
+}
+
+html[data-concept="journey"] {
+  scroll-padding-top: 88px;
+}
+
+@media (max-width: 760px) {
+  html[data-concept="journey"] {
+    scroll-padding-top: 80px;
+  }
+
+  .health-journey {
+    --header: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .health-journey [data-step],
+  .health-journey [data-pin] {
+    transition: none;
+  }
+}
