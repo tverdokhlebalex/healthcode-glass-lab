@@ -15,15 +15,13 @@ function curve(points) {
   for (let i = 1; i < points.length; i += 1) {
     const prev = points[i - 1];
     const next = points[i];
-    const mx = (prev.x + next.x) / 2;
-    const my = (prev.y + next.y) / 2;
-    const dx = next.x - prev.x;
-    const dy = next.y - prev.y;
-    const len = Math.hypot(dx, dy) || 1;
-    const horizontal = Math.abs(dx) > Math.abs(dy) * 1.8;
-    const bend = horizontal ? Math.min(36, len * 0.12) : Math.min(64, len * 0.22);
-    const sign = horizontal ? 1 : (i % 2 === 0 ? 1 : -1);
-    d += ` Q ${mx + (-dy / len) * bend * sign} ${my + (dx / len) * bend * sign} ${next.x} ${next.y}`;
+    const before = points[i - 2] || prev;
+    const after = points[i + 1] || next;
+    // Shared tangents keep the line smooth as it passes through each signal.
+    const tension = 0.14;
+    const c1 = { x: prev.x + (next.x - before.x) * tension, y: prev.y + (next.y - before.y) * tension };
+    const c2 = { x: next.x - (after.x - prev.x) * tension, y: next.y - (after.y - prev.y) * tension };
+    d += ` C ${c1.x} ${c1.y} ${c2.x} ${c2.y} ${next.x} ${next.y}`;
   }
   return d;
 }
@@ -82,6 +80,7 @@ export function useJourneyMotion(rootRef) {
           stagger: 0.12,
           delay: 0.35,
           ease: "power3.out",
+          onUpdate: () => paints.forEach((paint) => paint()),
         });
       }
 
@@ -89,6 +88,15 @@ export function useJourneyMotion(rootRef) {
         const section = svg.closest("section");
         const pins = [...section.querySelectorAll("[data-pin]")];
         const mode = svg.dataset.plot;
+        const cutouts = svg.querySelector("[data-label-cutouts]");
+        if (cutouts) cutouts.replaceChildren();
+        const labels = cutouts ? [...section.querySelectorAll("[data-trajectory-label]")].map((label) => {
+          const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          rect.setAttribute("fill", "black");
+          rect.setAttribute("rx", "4");
+          cutouts.appendChild(rect);
+          return { label, rect };
+        }) : [];
         let progress = 0;
         let drawn = reduced;
         let tweening = false;
@@ -96,6 +104,13 @@ export function useJourneyMotion(rootRef) {
         const paint = () => {
           if (pins.length < 2 || svg.getBoundingClientRect().width < 8) return;
           const box = svg.getBoundingClientRect();
+          labels.forEach(({ label, rect }) => {
+            const bounds = label.getBoundingClientRect();
+            rect.setAttribute("x", bounds.left - box.left - 5);
+            rect.setAttribute("y", bounds.top - box.top - 4);
+            rect.setAttribute("width", bounds.width + 10);
+            rect.setAttribute("height", bounds.height + 8);
+          });
           svg.setAttribute("viewBox", `0 0 ${box.width} ${box.height}`);
           svg.setAttribute("preserveAspectRatio", "none");
           const d = svg.dataset.bow === "down"
@@ -185,11 +200,13 @@ export function useJourneyMotion(rootRef) {
       });
     }, root);
 
-    const refresh = () => paints.forEach((paint) => paint());
+    let disposed = false;
+    const refresh = () => { if (!disposed) paints.forEach((paint) => paint()); };
     window.addEventListener("resize", refresh);
     document.fonts?.ready.then(refresh);
 
     return () => {
+      disposed = true;
       window.removeEventListener("resize", refresh);
       ctx.revert();
     };

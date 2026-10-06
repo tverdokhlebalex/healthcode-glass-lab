@@ -1,44 +1,25 @@
 import { ArrowRight } from "lucide-react";
+import { useId } from "react";
 import { Button } from "../../../components/Button.jsx";
 import styles from "./JourneyClose.module.css";
 
-const ECHO = ["Анализы", "Фокус", "Рекомендации", "План", "Сопровождение"];
+const ECHO = ["Профиль", "Анализы", "Разбор", "План", "Сопровождение"];
 
 export function JourneyClose({ onSurvey }) {
-  return (
-    <section className={styles.section} id="start">
-      <div className={styles.grid}>
-        <div className={styles.copy}>
-          <h2>
-            Начните
-            <br />
-            <em>со своего запроса.</em>
-          </h2>
-          <p>Три коротких вопроса помогут определить подходящий формат сопровождения.</p>
-        </div>
-        <div className={styles.dest}>
-          <p className={styles.mark}>05</p>
-          <p className={styles.caption}>Точка, с которой начинается ваш маршрут</p>
-          <ol>
-            {ECHO.map((item) => <li key={item}>{item}</li>)}
-          </ol>
-        </div>
+  const maskId = `close-labels-${useId().replace(/:/g, "")}`;
+  return <section className={styles.section} id="start">
+    <div className={styles.grid}>
+      <div className={styles.copy}>
+        <h2>Начните<br/><em>с короткого опроса.</em></h2>
+        <p>Ответьте на три вопроса — покажем, какой формат программы может подойти именно вам.</p>
+        <div className={styles.cta}><Button data-primary onClick={onSurvey}>Подобрать формат</Button><span>Около 2 минут · без регистрации</span></div>
       </div>
-      <div className={styles.arrive}>
-        <span className={styles.origin} data-pin aria-hidden="true"><i /></span>
-        <div className={styles.cta} data-pin="end">
-          <Button data-primary onClick={onSurvey}>Подобрать формат</Button>
-        </div>
+      <div className={styles.dest} role="group" aria-label="Профиль, анализы, разбор, план и сопровождение — ваш формат">
+        <svg data-plot="enter" aria-hidden="true"><defs><mask id={maskId} maskUnits="userSpaceOnUse"><rect width="100%" height="100%" fill="white"/><g data-label-cutouts/></mask></defs><g mask={`url(#${maskId})`}><path data-track/><path data-under/><path data-over/></g></svg>
+        <ol>{ECHO.map((item,index)=><li key={item} data-position={index}><span data-pin aria-hidden="true"><i/></span><span data-trajectory-label>{item}</span></li>)}</ol>
+        <p className={styles.caption}><span data-pin aria-hidden="true"><i/></span><span data-trajectory-label>Ваш формат</span></p>
       </div>
-      <svg data-plot="enter" data-bow="down" aria-hidden="true">
-        <path data-track />
-        <path data-under />
-        <path data-over />
-      </svg>
-      <footer className={styles.footer}>
-        <a href="#top">Healthcode <ArrowRight size={16} /></a>
-        <p>Персональный маршрут. Демонстрационная версия.</p>
-      </footer>
-    </section>
-  );
+    </div>
+    <footer className={styles.footer}><a href="#top">Healthcode <ArrowRight size={16}/></a><p>Онлайн-сопровождение по питанию и витаминам.</p></footer>
+  </section>;
 }

@@ -1,18 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { Button } from "../../../components/Button.jsx";
 import { prefersReducedMotion } from "../../../motion/gsap.js";
 import styles from "./JourneyHero.module.css";
 
 const NODES = [
-  { id: "analyses", n: "01", title: "Анализы", value: "42", note: "нг/мл", depth: "1" },
-  { id: "focus", n: "02", title: "Фокус", value: "Энергия", note: "месяц", depth: "2" },
-  { id: "advice", n: "03", title: "Рекомендации", value: "1", note: "шаг", depth: "1" },
-  { id: "plan", n: "04", title: "План", value: "7", note: "дней", depth: "3" },
-  { id: "care", n: "05", title: "Сопровождение", value: "рядом", note: "", depth: "2" },
+  { id: "profile", n: "01", title: "Профиль", value: "цели и привычки", depth: "1" },
+  { id: "analyses", n: "02", title: "Анализы", value: "загрузка результатов", depth: "2" },
+  { id: "review", n: "03", title: "Разбор", value: "показатели и дефициты", depth: "1" },
+  { id: "plan", n: "04", title: "План", value: "питание и витамины", depth: "3" },
+  { id: "care", n: "05", title: "Сопровождение", value: "корректировки вместе", depth: "2" },
 ];
 
 export function JourneyHero({ onSurvey }) {
   const fieldRef = useRef(null);
+  const maskId = `hero-labels-${useId().replace(/:/g, "")}`;
 
   useEffect(() => {
     const field = fieldRef.current;
@@ -44,33 +45,29 @@ export function JourneyHero({ onSurvey }) {
       <div className={styles.copy}>
         <p className={styles.kicker}>Health Journey</p>
         <h1>
-          От состояния
-          <br />
-          к своему
-          <br />
-          <em>маршруту.</em>
+          <span>Разобраться в анализах.</span>
+          <em>Понять, что делать дальше.</em>
         </h1>
         <p className={styles.lead}>
-          От того, что есть сейчас, — к понятным шагам, которые можно встроить в обычную жизнь.
+          Загрузите имеющиеся анализы и расскажите о своих целях и привычках. Специалист поможет увидеть общую картину и сформирует персональные рекомендации по питанию и витаминам.
         </p>
         <div className={styles.actions}>
           <Button data-primary onClick={onSurvey}>Подобрать формат</Button>
           <span>3 вопроса · около 2 минут</span>
         </div>
       </div>
-      <div className={styles.field} ref={fieldRef} data-field>
+      <div className={styles.field} ref={fieldRef} data-field role="group" aria-label="Профиль, анализы, разбор, план и сопровождение">
         <svg data-plot="load" aria-hidden="true">
-          <path data-track />
-          <path data-under />
-          <path data-over />
+          <defs><mask id={maskId} maskUnits="userSpaceOnUse"><rect width="100%" height="100%" fill="white"/><g data-label-cutouts/></mask></defs>
+          <g mask={`url(#${maskId})`}><path data-track /><path data-under /><path data-over /></g>
         </svg>
         {NODES.map((node) => (
-          <article key={node.id} className={styles.node} data-pin data-place={node.id} data-depth={node.depth}>
-            <div className={styles.shift}>
-              <i />
+          <article key={node.id} className={styles.node} data-pin data-place={node.id} data-depth={node.depth} data-active={node.id === "plan" ? "true" : undefined}>
+            <i aria-hidden="true" />
+            <div className={styles.shift} data-trajectory-label>
               <span className={styles.num}>{node.n}</span>
               <strong>{node.title}</strong>
-              <em>{node.value}{node.note ? <small>{node.note}</small> : null}</em>
+              <p>{node.value}</p>
             </div>
           </article>
         ))}

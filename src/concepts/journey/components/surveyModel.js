@@ -1,3 +1,5 @@
+import { PROGRAM_FORMATS } from "./programFormats.js";
+
 export const surveyQuestions = [
   {
     id: "goal",
@@ -10,22 +12,22 @@ export const surveyQuestions = [
     ],
   },
   {
-    id: "obstacle",
-    title: "Что чаще мешает двигаться к цели?",
-    hint: "Это поможет выбрать удобный инструмент для старта.",
+    id: "depth",
+    title: "Насколько подробный разбор вам нужен?",
+    hint: "Выберите желаемую глубину работы. Это поможет сравнить форматы программы.",
     options: [
-      { value: "time", label: "Мало времени", description: "Нужны простые решения без долгой подготовки." },
-      { value: "choice", label: "Неясно, что выбрать", description: "Советов много — хочется понять, что подходит мне." },
-      { value: "consistency", label: "Сложно сохранять привычку", description: "Начинаю, но не всегда получается продолжать." },
+      { value: "basic", label: "Основные показатели и рекомендации", description: "Хочу разобраться в главном и получить понятные рекомендации." },
+      { value: "extended", label: "Расширенный анализ и план питания", description: "Хочу подробный разбор и персональный план питания." },
+      { value: "deep", label: "Глубокий разбор и расширенный план", description: "Хочу подробно обсудить показатели и привычки, получить расширенный план." },
     ],
   },
   {
     id: "support",
-    title: "Как вам удобнее двигаться дальше?",
+    title: "Нужно ли вам сопровождение специалиста?",
     hint: "Вы выбираете формат поддержки. Его можно обсудить и изменить.",
     options: [
       { value: "independent", label: "Самостоятельно, с понятным планом", description: "Хочу опираться на рекомендации и отмечать свой прогресс." },
-      { value: "expert", label: "Вместе со специалистом", description: "Хочу задавать вопросы и обсуждать изменения по ходу программы." },
+      { value: "expert", label: "Да, хочу сопровождение", description: "Хочу задавать вопросы и корректировать план вместе со специалистом." },
     ],
   },
 ];
@@ -36,27 +38,28 @@ const focusByGoal = {
   routine: { title: "Посильный режим дня", text: "В программе стоит начать с плана сна, регулярных приёмов пищи и восстановления, который можно встроить в ваше расписание." },
 };
 
-const toolByObstacle = {
-  time: { title: "Короткий план на неделю", text: "Небольшой список приоритетных действий и заготовок, чтобы тратить меньше времени на ежедневный выбор." },
-  choice: { title: "Личный список ориентиров", text: "Конкретные примеры и варианты замены, чтобы понимать, что выбрать и как применить рекомендацию в обычный день." },
-  consistency: { title: "Трекер одной привычки", text: "Небольшие шаги и отметки выполнения, чтобы видеть, что получается, и вовремя упрощать слишком сложные задачи." },
-};
-
-const supportByChoice = {
-  independent: { title: "Самостоятельный старт", text: "Ищите формат с письменными рекомендациями и инструментами самопроверки. Вы сможете возвращаться к плану в удобное время." },
-  expert: { title: "Сопровождение специалиста", text: "Ищите формат с обратной связью: вопросы по рекомендациям, обсуждение трудностей и корректировка плана по ходу программы." },
-};
-
 export function isValidAnswer(questionId, value) {
   return surveyQuestions.some((question) => question.id === questionId && question.options.some((option) => option.value === value));
 }
 
 export function getSurveyResult(answers) {
   if (!answers || !surveyQuestions.every((question) => isValidAnswer(question.id, answers[question.id]))) return null;
+  const wantsSupport = answers.support === "expert";
+  const wantsDeepAnalysis = answers.depth === "deep";
+  const programId = wantsSupport || wantsDeepAnalysis ? "premium" : answers.depth === "extended" ? "standard" : "basic";
+  const reason = wantsSupport && wantsDeepAnalysis
+    ? "Вы выбрали глубокий разбор и сопровождение: этот формат включает расширенный план и возможность обсуждать его со специалистом."
+    : wantsSupport
+      ? "Вы хотите обсуждать прогресс и корректировать план со специалистом. Сопровождение входит в формат «Премиум»."
+      : wantsDeepAnalysis
+        ? "Вы выбрали глубокий разбор и расширенный план. Они входят в формат «Премиум» вместе с сопровождением; его необходимость можно обсудить отдельно."
+        : answers.depth === "extended"
+          ? "Вы выбрали расширенный анализ и персональный план питания без постоянного сопровождения. Это соответствует формату «Стандартный»."
+          : "Вам нужен разбор основных показателей и рекомендации, которыми можно пользоваться самостоятельно. Это соответствует формату «Базовый».";
   return {
-    focus: focusByGoal[answers.goal],
-    tool: toolByObstacle[answers.obstacle],
-    support: supportByChoice[answers.support],
+    program: { ...PROGRAM_FORMATS.find((program) => program.id === programId) },
+    reason,
+    focus: { ...focusByGoal[answers.goal] },
     answers: surveyQuestions.map((question) => ({
       question: question.title,
       label: question.options.find((option) => option.value === answers[question.id]).label,

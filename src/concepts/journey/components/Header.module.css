@@ -4,7 +4,7 @@
   right: 0;
   left: 0;
   z-index: 30;
-  padding: 0 6vw;
+  padding: 0 var(--journey-gutter);
   border-bottom: 1px solid rgba(20, 40, 44, 0.08);
   background: rgba(244, 246, 245, 0.94);
   color: #1a2426;
@@ -93,4 +93,11 @@
   .burger, .menu { display: block; }
   .burger { display: flex; }
   .bar { min-height: 64px; }
+  .bar { gap:12px; }
+  .logo { font-size:17px; gap:8px; }
+  .actions button[data-primary] { padding:0 12px; font-size:13px; white-space:nowrap; }
+  .actions button[data-primary] > span:last-child { display:none; }
+  .burger { width:44px; height:44px; }
 }
+
+@media (max-width:380px) { .wrap { padding:0 12px; } .bar { gap:8px; } .logo { font-size:16px; } .mark { width:16px; height:16px; } .actions { gap:6px; } .actions button[data-primary] { padding:0 9px; font-size:12px; } }

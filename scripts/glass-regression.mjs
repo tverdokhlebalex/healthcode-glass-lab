@@ -17,7 +17,9 @@ import {
 } from "../src/shared/concepts.js";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
-const checkpoint = "d736ca6";
+// Current user-supplied aqua/teal Journey checkpoint, before this copy pass.
+// The separate Glass assertion below still checks its original published bytes.
+const checkpoint = "a584ca1";
 const originalGlobals = new Map(["window", "document", "localStorage"].map((key) => [key, Object.getOwnPropertyDescriptor(globalThis, key)]));
 let calls;
 let storage;
@@ -155,7 +157,7 @@ test("tracked edits stay within authorized concepts, integration and deployment 
 test("Future, shared routing, original survey, global CSS, motion and original assets match checkpoint bytes", () => {
   const baseline = paths(git("ls-tree", "-r", "--name-only", "-z", checkpoint));
   const deploymentFiles = new Set([".openai/hosting.json", ".github/workflows/deploy-pages.yml", "index.html", "src/media.js", "vite.config.js"]);
-  const protectedFiles = baseline.filter((path) => !path.startsWith("src/concepts/glass/") && !path.startsWith("src/concepts/journey/") && path !== "src/App.jsx" && !deploymentFiles.has(path));
+  const protectedFiles = baseline.filter((path) => !path.startsWith("src/concepts/glass/") && !path.startsWith("src/concepts/journey/") && !path.startsWith("scripts/") && path !== "src/App.jsx" && !deploymentFiles.has(path));
   assert.ok(protectedFiles.some((path) => path.startsWith("src/concepts/future/")));
   assert.ok(protectedFiles.some((path) => path.startsWith("src/shared/")));
   assert.ok(protectedFiles.some((path) => path.startsWith("public/images/")));

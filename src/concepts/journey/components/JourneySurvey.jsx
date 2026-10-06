@@ -48,9 +48,9 @@ function JourneySurveyDialog({ onClose }) {
   const showPrograms = () => {
     onClose();
     // Hash navigation retains the current concept and every other query parameter.
-    window.location.hash = "programs";
+    window.location.hash = "formats";
     requestAnimationFrame(() => {
-      const programs = document.getElementById("programs");
+      const programs = document.getElementById("formats");
       programs?.scrollIntoView({ behavior: "instant", block: "start" });
       const title = programs?.querySelector("h2");
       if (title) {
@@ -79,16 +79,16 @@ function JourneySurveyDialog({ onClose }) {
           <button className={styles.close} type="button" aria-label="Закрыть мини-опрос" onClick={onClose}><X size={20} /></button>
         </header>
         <div className={styles.content}>
-          <div className={styles.progressLabel} aria-live="polite">{complete ? "Ваш ориентир готов" : `Шаг ${step + 1} из 3 · около 2 минут`}</div>
+          <div className={styles.progressLabel} aria-live="polite">{complete ? "Подходящий формат" : `Вопрос ${step + 1} из 3 · около 2 минут`}</div>
           <div className={styles.progress} aria-hidden="true">
             {surveyQuestions.map((item, index) => <span key={item.id} className={index <= step ? styles.filled : ""} />)}
           </div>
-          <h2 ref={headingRef} tabIndex={-1} id={`${id}-title`} className={styles.title}>{complete ? "Вот с чего можно начать" : question.title}</h2>
+          <h2 ref={headingRef} tabIndex={-1} id={`${id}-title`} className={styles.title}>{complete ? `Вам может подойти «${result.program.name}»` : question.title}</h2>
           {complete && result ? (
             <>
-              <p className={styles.hint}>По вашим ответам мы собрали ориентир для выбора программы. Это ещё не персональная рекомендация специалиста.</p>
+              <p className={styles.hint}>{result.reason}</p>
               <div className={styles.result}>
-                {[["Фокус программы", result.focus], ["Практический инструмент", result.tool], ["Ваш формат поддержки", result.support]].map(([label, item], index) => (
+                {[["Что входит", { title: result.program.name, text: result.program.description }], ["Что обсудить со специалистом", result.focus]].map(([label, item], index) => (
                   <section key={label} className={styles.resultItem}>
                     <span className={styles.resultNumber}>0{index + 1}</span>
                     <div><span className={styles.resultLabel}>{label}</span><h3>{item.title}</h3><p>{item.text}</p></div>
@@ -99,11 +99,11 @@ function JourneySurveyDialog({ onClose }) {
                 <summary>На каких ответах основан результат</summary>
                 <dl>{result.answers.map((answer) => <div key={answer.question}><dt>{answer.question}</dt><dd>{answer.label}</dd></div>)}</dl>
               </details>
-              <p className={styles.note}>Ответы остаются только в этом окне. Опрос ничего не отправляет и не оформляет запись.</p>
+              <p className={styles.note}>Формат выбран по вашим предпочтениям, а не по оценке здоровья. Ответы остаются только в этом окне. Опрос ничего не отправляет и не оформляет запись.</p>
             </>
           ) : (
             <>
-              <p className={styles.hint}>{step === 0 ? "Три коротких вопроса помогут выбрать фокус программы, полезный инструмент и формат поддержки. Контакты не понадобятся." : question.hint}</p>
+              <p className={styles.hint}>{step === 0 ? "Три вопроса о вашей цели, глубине разбора и поддержке помогут подобрать формат программы. Контакты не понадобятся." : question.hint}</p>
               <fieldset className={styles.options} aria-labelledby={`${id}-title`}>
                 {question.options.map((option) => (
                   <label key={option.value} className={styles.option}>
@@ -113,15 +113,15 @@ function JourneySurveyDialog({ onClose }) {
                   </label>
                 ))}
               </fieldset>
-              <p className={styles.nextHint}>{step === 0 ? "Далее: что мешает вам двигаться к цели" : step === 1 ? "Далее: подходящий формат поддержки" : "Далее: ваш ориентир для выбора программы"}</p>
+              <p className={styles.nextHint}>{step === 0 ? "Далее: желаемая глубина разбора" : step === 1 ? "Далее: нужен ли вам специалист на время программы" : "Далее: подходящий формат и объяснение выбора"}</p>
             </>
           )}
         </div>
         <footer className={styles.footer}>
           {complete ? (
-            <><button type="button" className={styles.back} onClick={restart}>Пройти заново</button><button type="button" className={styles.primary} onClick={showPrograms}>Посмотреть программы <ArrowRight size={18} /></button></>
+            <><button type="button" className={styles.back} onClick={restart}>Пройти заново</button><button type="button" className={styles.primary} onClick={showPrograms}>Сравнить форматы <ArrowRight size={18} /></button></>
           ) : (
-            <><button type="button" className={styles.back} onClick={() => step > 0 ? setStep(step - 1) : onClose()}><ArrowLeft size={16} /> {step > 0 ? "Назад" : "Закрыть"}</button><button type="button" className={styles.primary} disabled={!isValidAnswer(question.id, answers[question.id])} onClick={() => setStep(step + 1)}>{step === 2 ? "Получить ориентир" : "Продолжить"}<ArrowRight size={18} /></button></>
+            <><button type="button" className={styles.back} onClick={() => step > 0 ? setStep(step - 1) : onClose()}><ArrowLeft size={16} /> {step > 0 ? "Назад" : "Закрыть"}</button><button type="button" className={styles.primary} disabled={!isValidAnswer(question.id, answers[question.id])} onClick={() => setStep(step + 1)}>{step === 2 ? "Подобрать формат" : "Продолжить"}<ArrowRight size={18} /></button></>
           )}
         </footer>
       </div>

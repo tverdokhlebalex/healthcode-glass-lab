@@ -6,6 +6,7 @@ import { JourneySignal } from "./components/JourneySignal.jsx";
 import { JourneyLife } from "./components/JourneyLife.jsx";
 import { JourneyRoute } from "./components/JourneyRoute.jsx";
 import { JourneyClose } from "./components/JourneyClose.jsx";
+import { JourneyFormats } from "./components/JourneyFormats.jsx";
 import { useJourneyMotion } from "./motion/useJourneyMotion.js";
 import "./healthJourney.css";
 
@@ -21,6 +22,7 @@ export function HealthJourneyPage({ onSurvey }) {
         <JourneySignal />
         <JourneyLife />
         <JourneyRoute />
+        <JourneyFormats />
         <JourneyClose onSurvey={onSurvey} />
       </main>
     </div>

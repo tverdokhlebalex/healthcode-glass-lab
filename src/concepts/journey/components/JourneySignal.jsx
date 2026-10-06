@@ -2,121 +2,36 @@ import { assetPath } from "../../../media.js";
 import styles from "./JourneySignal.module.css";
 
 const POINTS = [
-  {
-    n: "01",
-    t: "Анализы",
-    d: "То, что уже есть на руках.",
-    value: "42",
-    unit: "нг/мл · демо",
-    kind: "bar",
-  },
-  {
-    n: "02",
-    t: "Фокус",
-    d: "Один приоритет на этот месяц.",
-    value: "Энергия",
-    unit: "72%",
-    kind: "ring",
-  },
-  {
-    n: "03",
-    t: "Рекомендации",
-    d: "Следующее действие, не длинный список.",
-    value: "1 шаг",
-    unit: "7 дней",
-    kind: "steps",
-  },
-  {
-    n: "04",
-    t: "Динамика",
-    d: "Как картина сдвигается со временем.",
-    value: "4",
-    unit: "замера · демо",
-    kind: "chart",
-  },
+  { n: "01", title: "Анализы", value: "Ферритин", metric: "42 нг/мл", text: "Один из показателей, который рассматривается вместе с остальными.", kind: "report" },
+  { n: "02", title: "Питание", value: "Рацион и привычки", text: "Что и как вы обычно едите.", kind: "meal" },
+  { n: "03", title: "Цели", value: "Ваш приоритет", text: "Энергия, питание, режим или другая задача.", kind: "focus" },
+  { n: "04", title: "Динамика", value: "История изменений", text: "Можно возвращаться к прошлым результатам и видеть изменения.", kind: "history" },
 ];
 
 function Graphic({ kind }) {
-  if (kind === "bar") {
-    return (
-      <svg className={styles.graphic} viewBox="0 0 148 28" aria-hidden="true">
-        <line x1="2" y1="18" x2="146" y2="18" />
-        <circle cx="78" cy="18" r="4.5" />
-        <text x="70" y="10">42</text>
-      </svg>
-    );
-  }
-  if (kind === "ring") {
-    return (
-      <svg className={`${styles.graphic} ${styles.ring}`} viewBox="0 0 44 44" aria-hidden="true">
-        <circle cx="22" cy="22" r="16" />
-        <circle cx="22" cy="22" r="16" data-arc="true" />
-      </svg>
-    );
-  }
-  if (kind === "steps") {
-    return (
-      <svg className={styles.graphic} viewBox="0 0 92 16" aria-hidden="true">
-        <line x1="6" y1="8" x2="86" y2="8" />
-        <circle cx="6" cy="8" r="3.5" data-on="true" />
-        <circle cx="46" cy="8" r="4.5" data-now="true" />
-        <circle cx="86" cy="8" r="3.5" />
-      </svg>
-    );
-  }
-  return (
-    <svg className={styles.graphic} viewBox="0 0 148 40" aria-hidden="true">
-      <path d="M2 32 C 28 32, 36 20, 58 22 S 100 8, 146 12" data-line="true" />
-      <circle cx="58" cy="22" r="3" />
-      <circle cx="146" cy="12" r="3.5" data-now="true" />
-    </svg>
-  );
+  if (kind === "report") return <svg className={styles.graphic} viewBox="0 0 132 24" aria-hidden="true"><path d="M2 4H60M2 12H84M2 20H46"/><circle cx="113" cy="12" r="5"/></svg>;
+  if (kind === "meal") return <svg className={styles.graphic} viewBox="0 0 132 24" aria-hidden="true"><path d="M8 2V9Q8 15 14 15Q20 15 20 9V2M14 2V22M32 2V22M32 2Q40 12 32 13"/><ellipse cx="81" cy="12" rx="26" ry="9"/></svg>;
+  if (kind === "focus") return <svg className={styles.graphic} viewBox="0 0 132 24" aria-hidden="true"><path d="M5 12H124"/><circle cx="15" cy="12" r="3"/><circle cx="65" cy="12" r="3" data-now/><circle cx="115" cy="12" r="3"/></svg>;
+  return <svg className={styles.graphic} viewBox="0 0 132 24" aria-hidden="true"><path d="M5 18C25 18 28 7 48 9S85 18 124 5" data-line/><circle cx="48" cy="9" r="3"/><circle cx="124" cy="5" r="3" data-now/></svg>;
 }
 
 export function JourneySignal() {
-  return (
-    <section className={styles.section} id="about">
-      <figure className={styles.portrait} data-reveal>
-        <img
-          src={assetPath("images/journey-window.webp")}
-          alt="Женщина у высокого окна в светлой комнате"
-          width="864"
-          height="1152"
-          loading="lazy"
-        />
-      </figure>
-      <div className={styles.copy}>
-        <div className={styles.head}>
-          <h2>
-            Всё важное —
-            <br />
-            в одной картине.
-          </h2>
-          <p>Четыре точки вместо разрозненных заметок.</p>
-        </div>
-        <div className={styles.index}>
-          <svg data-plot="enter" aria-hidden="true">
-            <path data-track />
-            <path data-under />
-            <path data-over />
-          </svg>
-          <ol>
-            {POINTS.map((point) => (
-              <li key={point.n}>
-                <span className={styles.node} data-pin><i /></span>
-                <div className={styles.item}>
-                  <div className={styles.row}>
-                    <h3><span>{point.n}</span> {point.t}</h3>
-                    <strong>{point.value}</strong>
-                  </div>
-                  <p>{point.d} <em>{point.unit}</em></p>
-                  <Graphic kind={point.kind} />
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+  return <section className={styles.section} id="about">
+    <figure className={styles.portrait} data-reveal><img src={assetPath("images/journey-window.webp")} alt="Женщина у окна в светлой комнате" width="864" height="1152" loading="lazy"/></figure>
+    <div className={styles.copy}>
+      <div className={styles.head}><h2>Показатели важны<br/>в контексте.</h2><p>Специалист рассматривает анализы вместе с вашими целями, рационом и привычным образом жизни — чтобы выделить действительно важное.</p></div>
+      <div className={styles.index}>
+        <svg data-plot="enter" aria-hidden="true"><path data-track/><path data-under/><path data-over/></svg>
+        <ol>{POINTS.map(point=><li key={point.n}>
+          <span className={styles.node} data-pin aria-hidden="true"><i/></span>
+          <div className={styles.item}>
+            <div className={styles.row}><h3><span>{point.n}</span> {point.title}</h3><div className={styles.value}><strong>{point.value}</strong>{point.metric&&<span className={styles.metric}>{point.metric} <small>DEMO</small></span>}</div></div>
+            <p>{point.text}</p>
+            <Graphic kind={point.kind}/>
+          </div>
+        </li>)}</ol>
       </div>
-    </section>
-  );
+      <p className={styles.summary}>Основа персональных рекомендаций по питанию и витаминам.</p>
+    </div>
+  </section>;
 }

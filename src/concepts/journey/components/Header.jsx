@@ -5,10 +5,10 @@ import { Button } from "../../../components/Button.jsx";
 import styles from "./Header.module.css";
 
 const NAV = [
-  { id: "about", label: "О платформе" },
-  { id: "life", label: "Жизнь" },
-  { id: "programs", label: "Маршрут" },
-  { id: "start", label: "Старт" },
+  { id: "process", label: "Как работает" },
+  { id: "about", label: "Что входит" },
+  { id: "formats", label: "Форматы" },
+  { id: "start", label: "Начать" },
 ];
 
 export function Header({ onSurvey }) {
@@ -34,7 +34,7 @@ export function Header({ onSurvey }) {
       <a className={styles.logo} href="#top" onClick={()=>{setOpen(false);setActive("");}}><span className={styles.mark} aria-hidden="true" /><span>{BRAND_NAME}</span></a>
       <nav className={styles.nav} aria-label="Основная навигация">{links}</nav>
       <div className={styles.actions}>
-        <Button data-primary size="sm" onClick={()=>{setOpen(false);onSurvey();}}><span className={styles.full}>Подобрать формат</span><span className={styles.short}>Начать</span></Button>
+        <Button data-primary size="sm" onClick={()=>{setOpen(false);onSurvey();}}>Подобрать формат</Button>
         <button className={styles.burger} type="button" aria-expanded={open} aria-controls="journey-menu" aria-label={open?"Закрыть меню":"Открыть меню"} onClick={()=>setOpen(!open)}>{open?<X size={21}/>:<Menu size={21}/>}</button>
       </div>
     </div>

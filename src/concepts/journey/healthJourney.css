@@ -25,6 +25,7 @@
   --teal: #0e3e44;
   --warm-white: #f4f6f5;
   --header: 72px;
+  --journey-gutter: max(24px, calc((100vw - 1320px) / 2));
   font-family: var(--journey-font);
   color: var(--ink);
   background: var(--paper);
@@ -96,7 +97,6 @@
 .health-journey [data-over] {
   stroke: #2f8f98;
   stroke-width: 1.75;
-  filter: drop-shadow(0 0 5px rgba(47, 143, 152, 0.4));
 }
 
 html[data-concept="journey"] {
