@@ -1,0 +1,107 @@
+.process {
+  padding: 88px max(5vw, calc((100vw - 1240px) / 2));
+  background: var(--night);
+  color: var(--white);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  align-items: end;
+  gap: 48px;
+}
+
+.intro h2 {
+  font-size: clamp(38px, 3.6vw, 60px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.17;
+  text-wrap: balance;
+}
+
+.intro > p,
+.steps p {
+  color: #d8d7d1;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px 36px;
+  margin: 56px 0 48px;
+  padding: 0;
+  list-style: none;
+}
+
+.rail {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid #8d7348;
+  color: var(--gold-light);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.steps h3 {
+  margin-top: 18px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.steps p {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding-top: 32px;
+  border-top: 1px solid #45433e;
+}
+
+.actions button {
+  flex: none;
+  background: var(--warm-white);
+  color: var(--graphite);
+}
+
+.actions button:hover {
+  background: #e8e4db;
+}
+
+.actions p {
+  max-width: 39ch;
+  color: #d8d7d1;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+  .process { padding: 48px 20px; }
+  .intro { grid-template-columns: 1fr; gap: 20px; }
+  .intro h2 { font-size: clamp(29px, 7.4vw, 40px); line-height: 1.18; }
+  .intro > p { font-size: 16px; }
+  .steps { grid-template-columns: 1fr; gap: 0; margin: 32px 0; }
+  .steps li { position: relative; padding: 0 0 28px 42px; }
+  .steps li:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: 30px;
+    bottom: 9px;
+    width: 1px;
+    background: #8d7348;
+  }
+  .steps li:last-child { padding-bottom: 0; }
+  .rail { position: absolute; left: 0; top: 4px; padding: 0; border: 0; }
+  .rail span + span { display: none; }
+  .steps h3 { margin: 0; font-size: 18px; }
+  .steps p { margin-top: 6px; }
+  .actions { align-items: flex-start; flex-direction: column; gap: 16px; padding-top: 28px; }
+}

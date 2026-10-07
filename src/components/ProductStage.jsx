@@ -73,11 +73,16 @@ export function ProductStage() {
     <section className={styles.product} id="product" ref={rootRef}>
       <div className={styles.stage} data-stage>
         <RevealText as="h2" className={styles.statement} stagger={0.09} duration={1}>
-          <span>Анализы показывают цифры.</span>
-          <span>Мы помогаем увидеть</span>
-          <span data-late>картину целиком.</span>
+          <span>Не просто показатели —</span>
+          <span>а их значение для вас.</span>
         </RevealText>
 
+        <p className={styles.intro}>Мы рассматриваем анализы вместе с рационом, самочувствием, привычками и вашими целями. Так становится понятно, на что действительно стоит обратить внимание.</p>
+        <ol className={styles.connection} aria-label="Как связаны данные в кабинете">
+          <li><span>01</span> Показатели</li>
+          <li><span>02</span> Контекст вашей жизни</li>
+          <li><span>03</span> Рекомендации специалиста</li>
+        </ol>
         <div className={styles.instrument} data-instrument>
           <span className={styles.progress} aria-hidden="true" data-progress />
           <header className={styles.head} data-hello>

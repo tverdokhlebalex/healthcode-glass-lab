@@ -4,14 +4,13 @@
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
   align-items: center;
-  min-height: 100svh;
-  padding-top: 10vh;
-  background: var(--warm-white);
+  padding-block: 80px;
+  background: var(--white);
 }
 
 .portrait {
   position: relative;
-  height: 88svh;
+  height: clamp(640px, 58vw, 860px);
   overflow: hidden;
 }
 
@@ -74,23 +73,16 @@
   position: relative;
   z-index: 1;
   align-self: center;
-  padding: 0 6vw 0 64px;
+  padding: 0 5vw;
 }
 
 .title {
   margin: 0;
-  font-size: clamp(48px, 4.6vw, 80px);
+  font-size: clamp(38px, 3.5vw, 60px);
   font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.96;
-}
-
-.human {
-  font-family: var(--serif);
-  font-size: 0.95em;
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.035em;
+  line-height: 1.16;
+  text-wrap: balance;
 }
 
 .rule {
@@ -103,56 +95,57 @@
 }
 
 .text {
-  max-width: 34ch;
+  max-width: 46ch;
   margin: 24px 0 0;
   color: var(--ink-2);
   font-size: 18px;
   letter-spacing: -0.01em;
-  line-height: 1.5;
+  line-height: 1.65;
 }
 
-/* Этапы работы эксперта — тот же язык точек и нити, что в hero */
 .caps {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 0;
-  margin: 32px 0 0;
+  display: grid;
+  gap: 20px;
+  margin: 28px 0 0;
   padding: 0;
   list-style: none;
   counter-reset: cap;
 }
 
 .caps li {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--ink-2);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 16px;
+  padding-top: 18px;
+  border-top: 1px solid var(--panel-line);
   counter-increment: cap;
 }
 
 .caps li::before {
   content: "0" counter(cap);
-  color: var(--faint-grey);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  padding-top: 4px;
+  color: var(--gold-dark);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
-.caps li:not(:last-child)::after {
-  content: "";
-  width: 24px;
-  height: 1px;
-  margin: 0 12px 0 4px;
-  background: var(--gold);
+.caps h3 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.caps p {
+  max-width: 42ch;
+  margin-top: 6px;
+  color: var(--deep-grey);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .actions {
-  margin-top: 48px;
+  margin-top: 32px;
 }
 
 @media (max-width: 800px) {
@@ -161,11 +154,11 @@
     flex-direction: column;
     align-items: stretch;
     min-height: 0;
-    padding-top: 0;
+    padding-block: 0;
   }
 
   .portrait {
-    height: 64svh;
+    height: clamp(320px, 95vw, 460px);
   }
 
   .tag {
@@ -174,11 +167,13 @@
   }
 
   .copy {
-    padding: 32px 20px 64px;
+    align-self: stretch;
+    padding: 36px 20px 48px;
   }
 
   .title {
-    font-size: clamp(40px, 11vw, 56px);
+    font-size: clamp(29px, 7.4vw, 40px);
+    line-height: 1.18;
   }
 
   .text {

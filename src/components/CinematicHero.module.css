@@ -1,8 +1,9 @@
 .hero {
   position: relative;
   z-index: 2;
-  min-height: 100svh;
-  margin-bottom: -10vh;
+  min-height: max(820px, 100svh);
+  padding-bottom: 180px;
+  background: var(--warm-white);
 }
 
 .canvas {
@@ -35,25 +36,26 @@
 .copy {
   position: relative;
   z-index: 2;
-  width: min(820px, 60vw);
+  width: min(1120px, 72vw);
   padding: calc(var(--infobar) + var(--header) + 64px) 0 0 5vw;
 }
 
 .title {
   margin: 0;
   color: var(--graphite);
-  font-size: clamp(72px, 6vw, 112px);
+  font-size: clamp(44px, 4.2vw, 80px);
   font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.93;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  text-wrap: balance;
 }
 
 .lead {
-  max-width: 30ch;
+  max-width: 49ch;
   margin-top: 24px;
   color: var(--ink-2);
   font-size: 17px;
-  line-height: 1.45;
+  line-height: 1.6;
 }
 
 .actions {
@@ -63,7 +65,7 @@
 .path {
   position: absolute;
   z-index: 2;
-  bottom: 96px;
+  bottom: 48px;
   left: 5vw;
   display: grid;
   grid-template-columns: min(640px, 46vw) auto;
@@ -168,36 +170,10 @@
   letter-spacing: 0.06em;
 }
 
-.sequence {
-  position: absolute;
-  z-index: 2;
-  bottom: 32px;
-  left: 5vw;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.sequence li {
-  display: inline-flex;
-  align-items: center;
-  color: var(--ink-2);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.sequence li:not(:last-child)::after {
-  content: "";
-  width: 24px;
-  height: 1px;
-  margin: 0 12px;
-  background: var(--faint-grey);
+.caption {
+  margin-top: 12px;
+  color: var(--deep-grey);
+  font-size: 13px;
 }
 
 @media (max-width: 800px) {
@@ -206,6 +182,7 @@
     flex-direction: column;
     min-height: 0;
     margin-bottom: 0;
+    padding-bottom: 32px;
     background: var(--warm-white);
   }
 
@@ -216,7 +193,9 @@
   }
 
   .title {
-    font-size: clamp(46px, 13vw, 64px);
+    font-size: clamp(31px, 7.9vw, 44px);
+    line-height: 1.16;
+    letter-spacing: -0.03em;
   }
 
   .lead {
@@ -232,7 +211,7 @@
     position: relative;
     inset: auto;
     order: 2;
-    height: 60svh;
+    height: clamp(280px, 78vw, 420px);
   }
 
   .photo {
@@ -283,16 +262,4 @@
     margin: 0;
   }
 
-  .sequence {
-    position: static;
-    order: 4;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding: 24px 20px 48px;
-    scrollbar-width: none;
-  }
-
-  .sequence li {
-    flex: none;
-  }
 }

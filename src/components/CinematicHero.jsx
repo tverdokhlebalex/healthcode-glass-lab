@@ -6,7 +6,6 @@ import { RevealText } from "../motion/RevealText.jsx";
 import { useCinematicMotion } from "../motion/useCinematicMotion.js";
 import styles from "./CinematicHero.module.css";
 
-const STEPS = ["Анализы", "Интерпретация", "План", "Сопровождение"];
 // Демо-значения — визуальный концепт, не медицинские данные
 const NOTES = [
   { label: "Сон", value: "7 ч 32 мин" },
@@ -34,17 +33,18 @@ export function CinematicHero({ onSurvey }) {
 
       <div className={styles.copy} data-copy>
         <RevealText as="h1" className={styles.title} mode="load" delay={0.28} duration={0.92} stagger={0.09}>
-          <span>Ваши данные.</span>
-          <span>Ваш организм.</span>
-          <span>Понятный план.</span>
+          <span>Ваши анализы.</span>
+          <span>Понятные рекомендации.</span>
+          <span>Персональный план.</span>
         </RevealText>
         <FadeUp as="p" className={styles.lead} immediate delay={0.62}>
-          Анализы, экспертная интерпретация и персональные рекомендации — в одном сервисе.
+          Загрузите результаты анализов и расскажите о своих целях и привычках. Специалист поможет разобраться в показателях и подготовит персональные рекомендации по питанию и витаминам.
         </FadeUp>
         <FadeUp as="div" className={styles.actions} immediate delay={0.74}>
           <Button magnetic onClick={onSurvey}>
             Пройти мини-опрос
           </Button>
+          <p className={styles.caption}>3 вопроса · около 2 минут</p>
         </FadeUp>
       </div>
 
@@ -72,11 +72,7 @@ export function CinematicHero({ onSurvey }) {
         </p>
       </div>
 
-      <ol className={styles.sequence} id="process" data-sequence>
-        {STEPS.map((step) => (
-          <li key={step}>{step}</li>
-        ))}
-      </ol>
+
     </section>
   );
 }

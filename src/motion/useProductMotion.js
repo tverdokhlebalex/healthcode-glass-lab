@@ -54,7 +54,6 @@ export function useProductMotion(rootRef) {
     if (!root || prefersReducedMotion()) return undefined;
 
     const ctx = gsap.context(() => {
-      const stage = root.querySelector("[data-stage]");
       const instrument = root.querySelector("[data-instrument]");
       const hello = root.querySelector("[data-hello]");
       const rows = root.querySelectorAll("[data-row]");
@@ -150,43 +149,16 @@ export function useProductMotion(rootRef) {
         );
       });
 
-      const mm = gsap.matchMedia();
-      mm.add("(min-width: 981px)", () => {
-        ScrollTrigger.create({
-          trigger: root,
-          start: "top top",
-          end: "+=80%",
-          pin: stage,
-          pinSpacing: true,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            show(pick(self.progress));
-            gsap.to(progress, { scaleX: self.progress, duration: 0.4, ease: "power3.out", overwrite: true });
-          },
-        });
-        // Уход: кабинет чуть уменьшается, пока следующий кадр наезжает сверху
-        gsap.fromTo(
-          instrument,
-          { scale: 1, opacity: 1 },
-          {
-            scale: 0.94,
-            opacity: 0.6,
-            ease: "none",
-            scrollTrigger: { trigger: root, start: "bottom bottom", end: "bottom top", scrub: 1 },
-          },
-        );
-      });
-      mm.add("(max-width: 980px)", () => {
-        ScrollTrigger.create({
-          trigger: instrument,
-          start: "top 55%",
-          end: "bottom 45%",
-          onUpdate: (self) => {
-            const index = pick(self.progress);
-            show(index);
-            gsap.to(progress, { scaleX: (index + 1) / series.length, duration: STEP, ease: "power3.out", overwrite: true });
-          },
-        });
+      // Keep the cabinet in normal flow: longer explanatory copy must not be pinned
+      // outside a short viewport. Scrolling still reveals all three demo trends.
+      ScrollTrigger.create({
+        trigger: instrument,
+        start: "top 70%",
+        end: "bottom 30%",
+        onUpdate: (self) => {
+          show(pick(self.progress));
+          gsap.to(progress, { scaleX: self.progress, duration: 0.4, ease: "power3.out", overwrite: true });
+        },
       });
     }, root);
 

@@ -7,9 +7,9 @@ import styles from "./Header.module.css";
 
 const NAV = [
   { id: "how", label: "Как это работает", href: "#process" },
-  { id: "programs", label: "Программы" },
+  { id: "programs", label: "Программа", href: "#expert" },
   { id: "experts", label: "Эксперты", href: "#expert" },
-  { id: "about", label: "О сервисе" },
+  { id: "about", label: "О сервисе", href: "#product" },
 ];
 
 export function Header({ onSurvey }) {

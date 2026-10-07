@@ -143,3 +143,22 @@
     transition: none;
   }
 }
+
+/* In Future the mobile switcher occupies its own row, never the CTA area. */
+@media (max-width: 800px) {
+  :global(html[data-concept="future"]) .wrap {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: fit-content;
+    max-width: calc(100% - 40px);
+    margin: 16px auto;
+    box-shadow: none;
+  }
+
+  :global(html[data-concept="future"]) .tab,
+  :global(html[data-concept="future"]) .toggle {
+    min-width: 44px;
+    height: 44px;
+  }
+}

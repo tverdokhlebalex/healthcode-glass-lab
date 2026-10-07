@@ -5,6 +5,7 @@ import { GlassLabPage } from "./concepts/glass/GlassLabPage.jsx";
 import { HealthJourneyPage } from "./concepts/journey/HealthJourneyPage.jsx";
 import { ConceptSwitcher } from "./shared/ConceptSwitcher.jsx";
 import { useConcept } from "./shared/useConcept.js";
+import { FutureSurvey } from "./concepts/future/FutureSurvey.jsx";
 import { SurveyModal } from "./components/SurveyModal.jsx";
 import { JourneySurvey } from "./concepts/journey/components/JourneySurvey.jsx";
 
@@ -22,7 +23,9 @@ export default function App() {
       <ConceptSwitcher concept={concept} onChange={setConcept} />
       {concept === "journey"
         ? <JourneySurvey open={surveyOpen} onClose={closeSurvey} />
-        : <SurveyModal open={surveyOpen} onClose={closeSurvey} />}
+        : concept === "future"
+          ? <FutureSurvey open={surveyOpen} onClose={closeSurvey} />
+          : <SurveyModal open={surveyOpen} onClose={closeSurvey} />}
     </>
   );
 }

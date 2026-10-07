@@ -30,20 +30,17 @@ export function Expertise({ onSurvey }) {
       </div>
       <div className={styles.copy}>
         <RevealText as="h2" className={styles.title} stagger={0.1} duration={1.05} late={0.35}>
-          <span>За данными</span>
-          <span>всегда стоит</span>
-          <span className={styles.human} data-late>
-            человек.
-          </span>
+          <span>Что вы получаете</span>
+          <span>в программе.</span>
         </RevealText>
         <span className={styles.rule} data-rule />
         <p className={styles.text} data-text>
-          Экспертный разбор, персональная интерпретация и сопровождение в течение программы.
+          Вы получаете разбор показателей, персональный план питания и витаминов, понятные действия на ближайший период и возможность обсуждать результаты со специалистом.
         </p>
         <ul className={styles.caps} data-caps>
-          <li>Разбор</li>
-          <li>Рекомендации</li>
-          <li>Сопровождение</li>
+          <li><div><h3>Разбор</h3><p>Что значат показатели и на что обратить внимание.</p></div></li>
+          <li><div><h3>Персональный план</h3><p>Питание, витамины и конкретные действия под цели.</p></div></li>
+          <li><div><h3>Сопровождение</h3><p>Вопросы специалисту и корректировка рекомендаций по ходу программы.</p></div></li>
         </ul>
         <div className={styles.actions} data-actions>
           <Button onClick={onSurvey}>Пройти мини-опрос</Button>

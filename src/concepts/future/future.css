@@ -1,0 +1,23 @@
+/* Future-only tokens and shared controls: keep Glass and Journey unchanged. */
+html[data-concept="future"] body {
+  --font: "Manrope", "Segoe UI", sans-serif;
+  --mid-grey: #686861;
+  font-family: var(--font);
+}
+
+html[data-concept="future"] :is(button, input, select, textarea) {
+  font-family: inherit;
+}
+
+html[data-concept="future"] :is(h1, h2, h3) {
+  font-family: var(--font);
+  font-style: normal;
+}
+
+@media (max-width: 800px) {
+  html[data-concept="future"] main button {
+    width: fit-content;
+    max-width: 100%;
+    min-height: 52px;
+  }
+}

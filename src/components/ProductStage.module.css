@@ -11,21 +11,59 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  min-height: 100svh;
-  padding: calc(var(--infobar) + var(--header) + 16px) 5vw 24px;
+  padding: 88px 5vw;
 }
 
 .statement,
+.intro,
+.connection,
 .instrument {
   width: min(1240px, 88vw);
 }
 
 .statement {
   margin: 0;
-  font-size: clamp(40px, 4vw, 72px);
+  font-size: clamp(40px, 3.8vw, 64px);
   font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.96;
+  letter-spacing: -0.035em;
+  line-height: 1.16;
+  text-wrap: balance;
+}
+
+.intro {
+  max-width: min(1240px, 88vw);
+  padding-right: 30%;
+  color: #d8d7d1;
+  font-size: 17px;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.connection {
+  display: flex;
+  gap: 24px;
+  margin: 20px 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.connection li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.connection li:not(:last-child)::after {
+  content: "→";
+  margin-left: 14px;
+  color: var(--gold-light);
+}
+
+.connection span {
+  color: var(--gold-light);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
 }
 
 .instrument {
@@ -251,10 +289,10 @@
 }
 
 .valueNum {
-  font-size: clamp(64px, 5vw, 80px);
+  font-size: clamp(54px, 5vw, 72px);
   font-weight: 500;
-  letter-spacing: -0.05em;
-  line-height: 0.82;
+  letter-spacing: -0.035em;
+  line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 
@@ -358,15 +396,14 @@
 }
 
 .insightBox {
+  display: grid;
   position: relative;
-  min-height: 88px;
   margin-top: 12px;
   overflow: hidden;
 }
 
 .insightText {
-  position: absolute;
-  inset: 0 0 auto;
+  grid-area: 1 / 1;
   margin: 0;
   color: var(--ink-2);
   font-size: 16px;
@@ -380,15 +417,14 @@
 }
 
 .nextBox {
+  display: grid;
   position: relative;
-  min-height: 76px;
   margin-top: 16px;
   overflow: hidden;
 }
 
 .next {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
   display: flex;
   gap: 12px;
   margin: 0;
@@ -456,7 +492,7 @@
 @media (max-width: 980px) {
   .stage {
     min-height: 0;
-    padding: 96px 20px 64px;
+    padding: 52px 20px;
   }
 
   .statement,
@@ -465,7 +501,28 @@
   }
 
   .statement {
-    font-size: clamp(34px, 9vw, 44px);
+    font-size: clamp(29px, 7.4vw, 40px);
+    line-height: 1.18;
+  }
+
+  .intro {
+    max-width: none;
+    width: 100%;
+    padding-right: 0;
+    font-size: 16px;
+  }
+
+  .connection {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+    margin-block: 12px;
+    padding-left: 14px;
+    border-left: 1px solid var(--gold);
+  }
+
+  .connection li:not(:last-child)::after {
+    content: none;
   }
 
   .instrument {

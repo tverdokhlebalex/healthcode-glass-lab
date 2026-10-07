@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Picture } from "./Picture.jsx";
+import { assetPath } from "../media.js";
 import { RevealText } from "../motion/RevealText.jsx";
 import { useLifeMotion } from "../motion/useSpreadMotion.js";
 import styles from "./LifeSpread.module.css";
@@ -12,18 +12,17 @@ export function LifeSpread() {
     <section className={styles.life} id="life" ref={rootRef}>
       <div className={styles.frame} data-frame>
         <div className={styles.shift} data-shift>
-          <Picture name="life" alt="Мужчина готовит утренний приём пищи в светлой каменной кухне со стеклом" />
+          <img src={assetPath("/images/journey-food.webp")} alt="Лосось с запечёнными овощами, чечевицей и свежей зеленью на керамической тарелке" width="1536" height="1024" loading="lazy" decoding="async" />
         </div>
       </div>
 
-      <RevealText as="h2" className={styles.title} stagger={0.08} duration={1.05}>
-        <span>Рекомендации</span>
-        <span>должны</span>
-        <span>работать в</span>
-        <span>вашей жизни.</span>
-        <span data-late>Не только</span>
-        <span data-late>на бумаге.</span>
-      </RevealText>
+      <div className={styles.copy}>
+        <RevealText as="h2" className={styles.title} stagger={0.08} duration={1.05}>
+          <span>Питание, которое</span>
+          <span>подходит вашей жизни.</span>
+        </RevealText>
+        <p className={styles.text}>Рекомендации учитывают привычки, любимые продукты, режим дня и цели. Не идеальное меню на бумаге, а изменения, которые реально встроить в повседневность.</p>
+      </div>
 
       <aside className={styles.recommend}>
         <svg className={styles.route} viewBox="0 0 400 8" preserveAspectRatio="none" aria-hidden="true">

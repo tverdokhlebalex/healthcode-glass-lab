@@ -1,0 +1,65 @@
+.dialog {
+  width: min(620px, calc(100vw - 32px));
+  max-height: calc(100svh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--warm-white);
+  color: var(--graphite);
+  box-shadow: 0 24px 80px #0003;
+  overflow: hidden;
+}
+.dialog::backdrop { background: #17171699; }
+.shell { display: flex; flex-direction: column; max-height: calc(100svh - 34px); }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; border-bottom: 1px solid var(--line); }
+.brand { font-size: 15px; font-weight: 600; }
+.brand span { margin-left: 8px; color: var(--deep-grey); font-size: 12px; font-weight: 400; }
+.close { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: inherit; }
+.close:hover { background: var(--soft-grey); }
+.content { padding: 24px 28px; overflow-y: auto; overscroll-behavior: contain; }
+.progressLabel { color: var(--deep-grey); font-size: 12px; }
+.progress { display: flex; gap: 6px; margin: 12px 0 24px; }
+.progress span { height: 2px; flex: 1; background: var(--line); }
+.progress .filled { background: var(--gold-dark); }
+.title { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.025em; text-wrap: balance; }
+.hint { margin-top: 16px; color: var(--deep-grey); font-size: 15px; line-height: 1.6; }
+.options { display: grid; gap: 10px; margin: 24px 0 0; padding: 0; border: 0; min-width: 0; }
+.option { position: relative; display: flex; align-items: flex-start; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); cursor: pointer; }
+.option:has(input:checked) { border-color: var(--gold-dark); background: #f5f0e6; }
+.option:has(input:focus-visible) { outline: 2px solid var(--gold-dark); outline-offset: 3px; }
+.option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.radio { display: grid; place-items: center; flex: none; width: 20px; height: 20px; margin-top: 2px; border: 1px solid #88877c; border-radius: 50%; color: transparent; }
+.option input:checked + .radio { background: var(--graphite); border-color: var(--graphite); color: var(--white); }
+.option strong { display: block; font-size: 15px; font-weight: 600; line-height: 1.4; }
+.description { display: block; margin-top: 5px; color: var(--deep-grey); font-size: 13px; line-height: 1.5; }
+.nextHint, .note { margin-top: 20px; color: var(--deep-grey); font-size: 12px; line-height: 1.6; }
+.footer { display: flex; flex: none; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 24px; border-top: 1px solid var(--line); }
+.back, .primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 10px 16px; border: 0; border-radius: 999px; font-size: 14px; }
+.back { background: transparent; color: var(--deep-grey); }
+.back:hover { background: var(--soft-grey); }
+.primary { background: var(--graphite); color: var(--white); }
+.primary svg { color: var(--gold-light); }
+.primary:hover { background: var(--ink-2); }
+.primary:disabled { background: #e5e4de; color: #686861; cursor: not-allowed; }
+.primary:disabled svg { color: inherit; }
+.result { display: grid; gap: 20px; margin-top: 24px; }
+.resultItem { display: flex; gap: 16px; padding-top: 20px; border-top: 1px solid var(--line); }
+.resultNumber { color: var(--gold-dark); font-size: 13px; }
+.resultLabel { color: var(--deep-grey); font-size: 12px; }
+.resultItem h3 { margin-top: 8px; font-size: 18px; font-weight: 600; }
+.resultItem p { margin-top: 8px; color: var(--deep-grey); font-size: 14px; line-height: 1.6; }
+.summary { margin-top: 24px; font-size: 13px; }
+.summary summary { cursor: pointer; padding-block: 12px; }
+.summary dl { display: grid; gap: 12px; line-height: 1.6; }
+.summary dt { color: var(--deep-grey); }
+.summary dd { margin: 4px 0 0; }
+@media (max-width: 600px) {
+  .header { padding: 8px 16px; }
+  .content { padding: 20px; }
+  .title { font-size: 25px; }
+  .footer { padding: 12px; }
+  .back, .primary { padding-inline: 12px; font-size: 13px; }
+  .option { padding: 14px 12px; }
+  .brand span { margin-left: 4px; font-size: 11px; }
+}

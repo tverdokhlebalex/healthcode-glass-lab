@@ -26,7 +26,6 @@ export function useCinematicMotion(rootRef) {
       const drop = root.querySelector("[data-drop]");
       const dropDot = root.querySelector("[data-drop-dot]");
       const values = root.querySelectorAll("[data-note] strong");
-      const steps = root.querySelectorAll("[data-sequence] li");
 
       // Порядок: шапка → строки заголовка → подзаголовок → CTA → метки → кадр
       revealClip(canvas, { direction: "left", duration: 1.2, delay: 0.2 });
@@ -37,7 +36,6 @@ export function useCinematicMotion(rootRef) {
       tl.from(notes, { y: 8, opacity: 0, duration: 0.6, stagger: 0.08, ease: "power3.out" }, 0.12);
       tl.from(values, { yPercent: 60, opacity: 0, duration: 0.7, stagger: 0.08, ease: "power4.out" }, 0.35);
       tl.from("[data-demo]", { opacity: 0, duration: 0.6 }, 0.9);
-      tl.from(steps, { y: 8, opacity: 0, duration: 0.6, stagger: 0.06, ease: "power3.out" }, 0.4);
 
       const scrub = { trigger: root, start: "top top", end: "bottom top", scrub: 1 };
       const mm = gsap.matchMedia();
